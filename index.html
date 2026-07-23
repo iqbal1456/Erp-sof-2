@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>কম্পিউটার শপ ERP - ম্যানেজমেন্ট সিস্টেম</title>
+<title>কম্পিউটার শপ ERP - Advanced Management System</title>
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
 <style>
 /* ========== Theme Variables ========== */
@@ -21,7 +21,7 @@
   --border-color: #e0e0e0;
   --border-light: #eeeeee;
   --shadow-color: rgba(0,0,0,0.06);
-  --shadow-strong: rgba(0,0,0,0.1);
+  --shadow-strong: rgba(0,0,0,0.12);
   --primary: #1e3c72;
   --primary-light: #2a5298;
   --accent: #4fc3f7;
@@ -36,40 +36,46 @@
   --badge-warning-text: #ef6c00;
   --badge-danger-bg: #ffebee;
   --badge-danger-text: #c62828;
+  --badge-info-bg: #e3f2fd;
+  --badge-info-text: #1565c0;
   --alert-info-bg: #e3f2fd;
   --alert-info-text: #1565c0;
   --scrollbar-bg: #f0f0f0;
   --scrollbar-thumb: #c0c0c0;
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-success: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  --gradient-danger: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+  --gradient-warning: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+  --gradient-info: linear-gradient(135deg, #2196f3 0%, #21cbf3 100%);
 }
 
 body.dark-mode {
-  --bg-main: #121212;
-  --bg-card: #1e1e1e;
-  --bg-card-alt: #252525;
-  --bg-input: #2a2a2a;
-  --bg-hover: #2a2a2a;
-  --bg-table-head: #252525;
+  --bg-main: #0f1419;
+  --bg-card: #1a1f2e;
+  --bg-card-alt: #232a3d;
+  --bg-input: #232a3d;
+  --bg-hover: #2a3145;
+  --bg-table-head: #232a3d;
   --text-primary: #e4e4e4;
   --text-secondary: #c0c0c0;
   --text-muted: #888888;
   --text-heading: #64b5f6;
-  --border-color: #333333;
-  --border-light: #2a2a2a;
-  --shadow-color: rgba(0,0,0,0.3);
-  --shadow-strong: rgba(0,0,0,0.5);
-  --primary: #1e3c72;
-  --primary-light: #2a5298;
-  --accent: #4fc3f7;
+  --border-color: #2d3548;
+  --border-light: #232a3d;
+  --shadow-color: rgba(0,0,0,0.4);
+  --shadow-strong: rgba(0,0,0,0.6);
   --badge-success-bg: #1b3a1b;
   --badge-success-text: #81c784;
   --badge-warning-bg: #3e2a10;
   --badge-warning-text: #ffb74d;
   --badge-danger-bg: #3e1a1a;
   --badge-danger-text: #e57373;
+  --badge-info-bg: #1a2a3e;
+  --badge-info-text: #64b5f6;
   --alert-info-bg: #1a2a3e;
   --alert-info-text: #64b5f6;
-  --scrollbar-bg: #1e1e1e;
-  --scrollbar-thumb: #444444;
+  --scrollbar-bg: #1a1f2e;
+  --scrollbar-thumb: #3d4558;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'SolaimanLipi', Tahoma, sans-serif; }
@@ -82,48 +88,107 @@ body {
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: var(--scrollbar-bg); }
 ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 4px; }
 
-/* Sidebar */
-.sidebar { width: 260px; background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%); color: #fff; position: fixed; height: 100vh; overflow-y: auto; transition: all 0.3s; z-index: 100; }
-.sidebar-header { padding: 25px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: center; }
-.sidebar-header h2 { font-size: 20px; margin-bottom: 5px; }
+/* ========== Sidebar ========== */
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
+  color: #fff;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+  transition: all 0.3s;
+  z-index: 100;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+.sidebar-header {
+  padding: 25px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  text-align: center;
+  background: rgba(0,0,0,0.1);
+}
+.sidebar-header h2 { font-size: 20px; margin-bottom: 5px; display: flex; align-items: center; justify-content: center; gap: 8px; }
 .sidebar-header p { font-size: 12px; opacity: 0.8; }
 .sidebar-menu { list-style: none; padding: 15px 0; }
-.sidebar-menu li { padding: 12px 25px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 12px; border-left: 3px solid transparent; }
-.sidebar-menu li:hover { background: rgba(255,255,255,0.1); border-left-color: var(--accent); }
-.sidebar-menu li.active { background: rgba(255,255,255,0.15); border-left-color: var(--accent); }
+.sidebar-menu li {
+  padding: 13px 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-left: 3px solid transparent;
+  font-size: 14px;
+}
+.sidebar-menu li:hover {
+  background: rgba(255,255,255,0.1);
+  border-left-color: var(--accent);
+  padding-left: 30px;
+}
+.sidebar-menu li.active {
+  background: rgba(255,255,255,0.15);
+  border-left-color: var(--accent);
+  font-weight: 600;
+}
 .sidebar-menu li .icon { font-size: 18px; width: 24px; text-align: center; }
 
-/* Main */
+/* ========== Main ========== */
 .main { margin-left: 260px; flex: 1; padding: 20px; width: calc(100% - 260px); }
-.header { background: var(--bg-card); padding: 15px 25px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; box-shadow: 0 2px 8px var(--shadow-color); transition: background 0.3s; }
-.header h1 { font-size: 22px; color: var(--text-heading); }
-.header-right { display: flex; gap: 15px; align-items: center; }
-.date-time { font-size: 14px; color: var(--text-muted); }
-.user-info { display: flex; align-items: center; gap: 10px; padding: 8px 15px; background: var(--bg-card-alt); border-radius: 25px; transition: background 0.3s; }
-.user-avatar { width: 35px; height: 35px; background: linear-gradient(135deg, #1e3c72, #2a5298); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold; }
+.header {
+  background: var(--bg-card);
+  padding: 15px 25px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px var(--shadow-color);
+  transition: background 0.3s;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.header h1 { font-size: 22px; color: var(--text-heading); display: flex; align-items: center; gap: 10px; }
+.header-right { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.date-time { font-size: 13px; color: var(--text-muted); }
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 15px;
+  background: var(--bg-card-alt);
+  border-radius: 25px;
+  transition: background 0.3s;
+}
+.user-avatar {
+  width: 35px;
+  height: 35px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+}
 
-/* ========== Theme Toggle Switch ========== */
-.theme-toggle {
+/* ========== Controls (Theme + Language) ========== */
+.control-group {
   display: flex;
   align-items: center;
   gap: 8px;
-  cursor: pointer;
-  user-select: none;
+  background: var(--bg-card-alt);
+  padding: 5px 12px;
+  border-radius: 25px;
+  transition: background 0.3s;
 }
-.theme-toggle-label {
-  font-size: 12px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
+.control-label { font-size: 12px; color: var(--text-muted); font-weight: 500; }
 .switch {
   position: relative;
-  width: 56px;
-  height: 28px;
+  width: 52px;
+  height: 26px;
   background: linear-gradient(180deg, #87ceeb 0%, #ffd89b 100%);
   border-radius: 50px;
   cursor: pointer;
@@ -136,139 +201,332 @@ body {
   position: absolute;
   top: 2px;
   left: 2px;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   background: #fff;
   border-radius: 50%;
   transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 13px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
-.switch.dark {
-  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+.switch.dark { background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%); }
+.switch.dark::before { content: '🌙'; transform: translateX(26px); background: #2a2a4a; }
+
+.lang-toggle {
+  display: flex;
+  background: var(--bg-card-alt);
+  border-radius: 25px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
 }
-.switch.dark::before {
-  content: '🌙';
-  transform: translateX(28px);
-  background: #2a2a4a;
+.lang-btn {
+  padding: 6px 14px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: all 0.3s;
 }
-/* Stars in dark mode */
-.switch::after {
-  content: '⭐';
-  position: absolute;
-  top: 6px;
-  right: 10px;
-  font-size: 8px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.switch.dark::after {
-  opacity: 1;
+.lang-btn.active {
+  background: var(--gradient-primary);
+  color: #fff;
 }
 
-/* Cards */
+/* ========== Cards ========== */
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 25px; }
-.stat-card { background: var(--bg-card); padding: 22px; border-radius: 12px; box-shadow: 0 2px 10px var(--shadow-color); position: relative; overflow: hidden; transition: all 0.3s; }
-.stat-card:hover { transform: translateY(-3px); box-shadow: 0 4px 15px var(--shadow-strong); }
-.stat-card::before { content: ''; position: absolute; top: 0; right: 0; width: 100px; height: 100px; border-radius: 50%; opacity: 0.1; transform: translate(30%, -30%); }
-.stat-card.blue::before { background: #2196f3; }
-.stat-card.green::before { background: #4caf50; }
-.stat-card.orange::before { background: #ff9800; }
-.stat-card.red::before { background: #f44336; }
-.stat-card.purple::before { background: #9c27b0; }
-.stat-card .icon { font-size: 32px; margin-bottom: 10px; }
-.stat-card.blue .icon { color: #2196f3; }
-.stat-card.green .icon { color: #4caf50; }
-.stat-card.orange .icon { color: #ff9800; }
-.stat-card.red .icon { color: #f44336; }
-.stat-card.purple .icon { color: #9c27b0; }
-.stat-card h3 { font-size: 14px; color: var(--text-muted); margin-bottom: 8px; font-weight: 500; }
+.stat-card {
+  background: var(--bg-card);
+  padding: 22px;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px var(--shadow-color);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  border: 1px solid var(--border-light);
+}
+.stat-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px var(--shadow-strong); }
+.stat-card .icon-wrap {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 12px;
+}
+.stat-card.blue .icon-wrap { background: var(--gradient-info); }
+.stat-card.green .icon-wrap { background: var(--gradient-success); }
+.stat-card.orange .icon-wrap { background: var(--gradient-warning); }
+.stat-card.red .icon-wrap { background: var(--gradient-danger); }
+.stat-card.purple .icon-wrap { background: var(--gradient-primary); }
+.stat-card h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; font-weight: 500; }
 .stat-card .value { font-size: 26px; font-weight: bold; color: var(--text-primary); }
 .stat-card .change { font-size: 12px; margin-top: 5px; }
 .change.up { color: var(--success); }
 .change.down { color: var(--danger); }
 
-/* Content sections */
-.content-section { display: none; }
+/* ========== Content ========== */
+.content-section { display: none; animation: fadeIn 0.4s ease; }
 .content-section.active { display: block; }
-.panel { background: var(--bg-card); border-radius: 12px; padding: 22px; box-shadow: 0 2px 10px var(--shadow-color); margin-bottom: 20px; transition: background 0.3s; }
-.panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--border-light); }
-.panel-header h2 { font-size: 18px; color: var(--text-heading); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Buttons */
-.btn { padding: 9px 18px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; transition: all 0.3s; display: inline-flex; align-items: center; gap: 6px; font-weight: 500; }
-.btn-primary { background: linear-gradient(135deg, #1e3c72, #2a5298); color: #fff; }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(30,60,114,0.3); }
-.btn-success { background: var(--success); color: #fff; }
-.btn-success:hover { background: #43a047; }
-.btn-danger { background: var(--danger); color: #fff; }
-.btn-danger:hover { background: #e53935; }
-.btn-warning { background: var(--warning); color: #fff; }
-.btn-info { background: var(--info); color: #fff; }
+.panel {
+  background: var(--bg-card);
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 2px 10px var(--shadow-color);
+  margin-bottom: 20px;
+  transition: background 0.3s;
+  border: 1px solid var(--border-light);
+}
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--border-light);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.panel-header h2 { font-size: 18px; color: var(--text-heading); display: flex; align-items: center; gap: 8px; }
+
+/* ========== Buttons ========== */
+.btn {
+  padding: 9px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px var(--shadow-strong); }
+.btn:active { transform: translateY(0); }
+.btn-primary { background: var(--gradient-primary); color: #fff; }
+.btn-success { background: var(--gradient-success); color: #fff; }
+.btn-danger { background: var(--gradient-danger); color: #fff; }
+.btn-warning { background: var(--gradient-warning); color: #fff; }
+.btn-info { background: var(--gradient-info); color: #fff; }
 .btn-sm { padding: 5px 10px; font-size: 12px; }
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+.btn-outline:hover { background: var(--bg-card-alt); }
 
-/* Table */
+/* ========== Table ========== */
 .table-container { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; }
-th { background: var(--bg-table-head); padding: 12px; text-align: left; font-weight: 600; color: var(--text-secondary); font-size: 13px; border-bottom: 2px solid var(--border-color); }
+th {
+  background: var(--bg-table-head);
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 13px;
+  border-bottom: 2px solid var(--border-color);
+}
 td { padding: 12px; border-bottom: 1px solid var(--border-light); font-size: 14px; color: var(--text-primary); }
 tr:hover { background: var(--bg-hover); }
-.badge { padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+.badge { padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; display: inline-block; }
 .badge-success { background: var(--badge-success-bg); color: var(--badge-success-text); }
 .badge-warning { background: var(--badge-warning-bg); color: var(--badge-warning-text); }
 .badge-danger { background: var(--badge-danger-bg); color: var(--badge-danger-text); }
+.badge-info { background: var(--badge-info-bg); color: var(--badge-info-text); }
 
-/* Forms */
+/* ========== Forms ========== */
 .form-group { margin-bottom: 15px; }
 .form-group label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 500; color: var(--text-secondary); }
-.form-control { width: 100%; padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 14px; transition: all 0.3s; background: var(--bg-input); color: var(--text-primary); }
-.form-control:focus { outline: none; border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(42,82,152,0.2); }
+.form-group label .required { color: var(--danger); }
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s;
+  background: var(--bg-input);
+  color: var(--text-primary);
+}
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(42,82,152,0.15);
+}
 .form-control::placeholder { color: var(--text-muted); }
-select.form-control { cursor: pointer; }
-textarea.form-control { resize: vertical; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
 
-/* Modal */
-.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; }
-.modal.show { display: flex; }
-.modal-content { background: var(--bg-card); border-radius: 12px; padding: 25px; width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto; color: var(--text-primary); }
-.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--border-light); }
+/* ========== Modal ========== */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(3px);
+}
+.modal.show { display: flex; animation: fadeIn 0.3s; }
+.modal-content {
+  background: var(--bg-card);
+  border-radius: 14px;
+  padding: 25px;
+  width: 90%;
+  max-width: 650px;
+  max-height: 90vh;
+  overflow-y: auto;
+  color: var(--text-primary);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--border-light);
+}
 .modal-header h2 { color: var(--text-heading); font-size: 18px; }
 .close-btn { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-muted); }
 
-/* POS */
+/* ========== POS ========== */
 .pos-container { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; }
-.pos-products { background: var(--bg-card); border-radius: 12px; padding: 20px; box-shadow: 0 2px 10px var(--shadow-color); }
-.pos-cart { background: var(--bg-card); border-radius: 12px; padding: 20px; box-shadow: 0 2px 10px var(--shadow-color); height: fit-content; }
-.search-bar { display: flex; gap: 10px; margin-bottom: 15px; }
-.search-bar input { flex: 1; }
-.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; max-height: 500px; overflow-y: auto; }
-.product-item { background: var(--bg-card-alt); padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s; border: 2px solid transparent; }
-.product-item:hover { border-color: var(--primary-light); transform: translateY(-2px); }
+.pos-products, .pos-cart {
+  background: var(--bg-card);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 2px 10px var(--shadow-color);
+  border: 1px solid var(--border-light);
+}
+.scanner-box {
+  background: var(--gradient-primary);
+  color: #fff;
+  padding: 25px;
+  border-radius: 14px;
+  text-align: center;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(102,126,234,0.3);
+}
+.scanner-box input {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  margin-top: 15px;
+  text-align: center;
+  background: #fff;
+  color: #333;
+}
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+.product-item {
+  background: var(--bg-card-alt);
+  padding: 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 2px solid transparent;
+  position: relative;
+}
+.product-item:hover {
+  border-color: var(--primary-light);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px var(--shadow-strong);
+}
 .product-item .name { font-weight: 600; font-size: 13px; margin-bottom: 5px; color: var(--text-primary); }
 .product-item .price { color: var(--primary-light); font-weight: bold; font-size: 14px; }
 .product-item .stock { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
-.cart-items { max-height: 300px; overflow-y: auto; margin-bottom: 15px; }
-.cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid var(--border-light); }
+.product-item .warranty-tag {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: var(--gradient-success);
+  color: #fff;
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 8px;
+}
+
+.cart-items { max-height: 280px; overflow-y: auto; margin-bottom: 15px; }
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid var(--border-light);
+}
 .cart-item-info { flex: 1; }
 .cart-item-name { font-weight: 500; font-size: 13px; color: var(--text-primary); }
 .cart-item-price { font-size: 12px; color: var(--text-muted); }
 .cart-item-qty { display: flex; align-items: center; gap: 5px; }
-.qty-btn { width: 25px; height: 25px; border: 1px solid var(--border-color); background: var(--bg-input); color: var(--text-primary); border-radius: 4px; cursor: pointer; }
+.qty-btn {
+  width: 25px;
+  height: 25px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-input);
+  color: var(--text-primary);
+  border-radius: 4px;
+  cursor: pointer;
+}
 .cart-total { border-top: 2px solid var(--primary); padding-top: 15px; margin-top: 10px; }
 .total-row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 14px; color: var(--text-primary); }
-.total-row.grand { font-size: 18px; font-weight: bold; color: var(--text-heading); border-top: 1px dashed var(--border-color); padding-top: 10px; margin-top: 5px; }
+.total-row.grand {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--text-heading);
+  border-top: 1px dashed var(--border-color);
+  padding-top: 10px;
+  margin-top: 5px;
+}
 
-/* Barcode */
+/* ========== Customer Required Alert ========== */
+.customer-required {
+  background: var(--gradient-warning);
+  color: #fff;
+  padding: 12px 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ========== Barcode ========== */
 .barcode-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
-.barcode-item { background: var(--bg-card); border: 1px dashed var(--border-color); padding: 15px; text-align: center; border-radius: 8px; }
+.barcode-item {
+  background: var(--bg-card);
+  border: 1px dashed var(--border-color);
+  padding: 15px;
+  text-align: center;
+  border-radius: 10px;
+}
 .barcode-item svg { max-width: 100%; }
 .barcode-item .info { margin-top: 8px; font-size: 12px; color: var(--text-secondary); }
 
-/* Invoice Print */
+/* ========== Invoice Print ========== */
 .invoice-print { display: none; }
 @media print {
   body * { visibility: hidden; }
@@ -282,47 +540,96 @@ textarea.form-control { resize: vertical; }
 .invoice-info { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
 .invoice-table { width: 100%; margin-bottom: 20px; }
 .invoice-table th { background: #1e3c72; color: #fff; padding: 10px; }
-.invoice-table td { padding: 8px; border-bottom: 1px solid #ddd; }
+.invoice-table td { padding: 8px; border-bottom: 1px solid #ddd; color: #000; }
 .invoice-total { text-align: right; }
 .invoice-total .row { display: flex; justify-content: flex-end; gap: 40px; padding: 5px 0; }
 .invoice-total .grand { font-size: 18px; font-weight: bold; color: #1e3c72; border-top: 2px solid #1e3c72; padding-top: 8px; margin-top: 5px; }
+.invoice-total .due { color: #f44336; font-weight: bold; }
 
-/* Charts */
+/* ========== Charts ========== */
 .chart-container { background: var(--bg-card); padding: 20px; border-radius: 12px; }
 .chart-bar { display: flex; align-items: flex-end; height: 200px; gap: 15px; padding: 20px 0; border-bottom: 2px solid var(--border-color); }
-.bar { flex: 1; background: linear-gradient(180deg, #2a5298, #1e3c72); border-radius: 6px 6px 0 0; position: relative; min-height: 20px; transition: all 0.3s; }
-.bar:hover { opacity: 0.8; }
+.bar { flex: 1; background: var(--gradient-primary); border-radius: 6px 6px 0 0; position: relative; min-height: 20px; transition: all 0.3s; }
+.bar:hover { opacity: 0.85; }
 .bar-label { position: absolute; bottom: -25px; left: 0; right: 0; text-align: center; font-size: 11px; color: var(--text-muted); }
 .bar-value { position: absolute; top: -20px; left: 0; right: 0; text-align: center; font-size: 11px; font-weight: bold; color: var(--text-heading); }
 
-/* Alerts */
-.alert { padding: 12px 15px; border-radius: 6px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+/* ========== Alerts ========== */
+.alert { padding: 12px 15px; border-radius: 8px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
 .alert-info { background: var(--alert-info-bg); color: var(--alert-info-text); border-left: 4px solid var(--info); }
 .alert-success { background: var(--badge-success-bg); color: var(--badge-success-text); border-left: 4px solid var(--success); }
 .alert-warning { background: var(--badge-warning-bg); color: var(--badge-warning-text); border-left: 4px solid var(--warning); }
 
-/* Scanner */
-.scanner-box { background: linear-gradient(135deg, #1e3c72, #2a5298); color: #fff; padding: 25px; border-radius: 12px; text-align: center; margin-bottom: 20px; }
-.scanner-box input { width: 100%; padding: 15px; font-size: 18px; border-radius: 8px; border: none; margin-top: 15px; text-align: center; background: #fff; color: #333; }
+/* ========== Category Manager ========== */
+.category-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.category-tag {
+  background: var(--bg-card-alt);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+.category-tag .remove {
+  cursor: pointer;
+  color: var(--danger);
+  font-weight: bold;
+  font-size: 14px;
+}
 
-/* Responsive */
+/* ========== Toast ========== */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #333;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.3s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  max-width: 300px;
+}
+.toast.show { opacity: 1; }
+.toast.success { background: var(--success); }
+.toast.error { background: var(--danger); }
+.toast.warning { background: var(--warning); }
+
+code { background: var(--bg-card-alt); padding: 2px 6px; border-radius: 3px; font-size: 12px; color: var(--text-secondary); }
+
+/* ========== Payment Section ========== */
+.payment-section {
+  background: var(--bg-card-alt);
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 15px;
+  border: 1px solid var(--border-color);
+}
+.payment-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.due-amount {
+  background: var(--gradient-danger);
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* ========== Responsive ========== */
 @media (max-width: 768px) {
   .sidebar { width: 70px; }
   .sidebar-header h2, .sidebar-header p, .sidebar-menu li span:not(.icon) { display: none; }
   .main { margin-left: 70px; width: calc(100% - 70px); }
   .pos-container { grid-template-columns: 1fr; }
-  .form-row { grid-template-columns: 1fr; }
-  .theme-toggle-label { display: none; }
+  .form-row, .form-row-3 { grid-template-columns: 1fr; }
+  .control-label { display: none; }
 }
-
-/* Toast */
-.toast { position: fixed; top: 20px; right: 20px; background: #333; color: #fff; padding: 12px 20px; border-radius: 6px; z-index: 2000; opacity: 0; transition: opacity 0.3s; }
-.toast.show { opacity: 1; }
-.toast.success { background: var(--success); }
-.toast.error { background: var(--danger); }
-
-/* Code tag */
-code { background: var(--bg-card-alt); padding: 2px 6px; border-radius: 3px; font-size: 12px; color: var(--text-secondary); }
 </style>
 </head>
 <body>
@@ -330,39 +637,49 @@ code { background: var(--bg-card-alt); padding: 2px 6px; border-radius: 3px; fon
 <!-- Sidebar -->
 <div class="sidebar">
   <div class="sidebar-header">
-    <h2>💻 কম্পিউটার শপ</h2>
-    <p>ERP ম্যানেজমেন্ট সিস্টেম</p>
+    <h2>💻 <span data-i18n="shopName">কম্পিউটার শপ</span></h2>
+    <p data-i18n="erpSystem">ERP ম্যানেজমেন্ট সিস্টেম</p>
   </div>
   <ul class="sidebar-menu">
-    <li class="active" onclick="showSection('dashboard', this)"><span class="icon">📊</span><span>ড্যাশবোর্ড</span></li>
-    <li onclick="showSection('pos', this)"><span class="icon">🛒</span><span>পয়েন্ট অফ সেল</span></li>
-    <li onclick="showSection('products', this)"><span class="icon">📦</span><span>পণ্য তালিকা</span></li>
-    <li onclick="showSection('invoices', this)"><span class="icon">🧾</span><span>ইনভয়েস</span></li>
-    <li onclick="showSection('customers', this)"><span class="icon">👥</span><span>ক্রেতা</span></li>
-    <li onclick="showSection('suppliers', this)"><span class="icon">🏭</span><span>সরবরাহকারী</span></li>
-    <li onclick="showSection('purchase', this)"><span class="icon">📥</span><span>ক্রয়</span></li>
-    <li onclick="showSection('barcode', this)"><span class="icon">📶</span><span>বারকোড</span></li>
-    <li onclick="showSection('reports', this)"><span class="icon">📈</span><span>রিপোর্ট</span></li>
-    <li onclick="showSection('settings', this)"><span class="icon">⚙️</span><span>সেটিংস</span></li>
+    <li class="active" onclick="showSection('dashboard', this)"><span class="icon">📊</span><span data-i18n="dashboard">ড্যাশবোর্ড</span></li>
+    <li onclick="showSection('pos', this)"><span class="icon">🛒</span><span data-i18n="pos">পয়েন্ট অফ সেল</span></li>
+    <li onclick="showSection('products', this)"><span class="icon">📦</span><span data-i18n="products">পণ্য তালিকা</span></li>
+    <li onclick="showSection('invoices', this)"><span class="icon">🧾</span><span data-i18n="invoices">ইনভয়েস</span></li>
+    <li onclick="showSection('dueList', this)"><span class="icon">💸</span><span data-i18n="dueList">বাকি তালিকা</span></li>
+    <li onclick="showSection('customers', this)"><span class="icon">👥</span><span data-i18n="customers">ক্রেতা</span></li>
+    <li onclick="showSection('suppliers', this)"><span class="icon">🏭</span><span data-i18n="suppliers">সরবরাহকারী</span></li>
+    <li onclick="showSection('purchase', this)"><span class="icon">📥</span><span data-i18n="purchase">ক্রয়</span></li>
+    <li onclick="showSection('barcode', this)"><span class="icon">📶</span><span data-i18n="barcode">বারকোড</span></li>
+    <li onclick="showSection('reports', this)"><span class="icon">📈</span><span data-i18n="reports">রিপোর্ট</span></li>
+    <li onclick="showSection('settings', this)"><span class="icon">⚙️</span><span data-i18n="settings">সেটিংস</span></li>
   </ul>
 </div>
 
 <!-- Main Content -->
 <div class="main">
   <div class="header">
-    <h1 id="pageTitle">ড্যাশবোর্ড</h1>
+    <h1 id="pageTitle">📊 <span data-i18n="dashboard">ড্যাশবোর্ড</span></h1>
     <div class="header-right">
       <div class="date-time" id="dateTime"></div>
       
-      <!-- ========== Theme Toggle ========== -->
-      <div class="theme-toggle" onclick="toggleTheme()" title="থিম পরিবর্তন করুন">
-        <span class="theme-toggle-label" id="themeLabel">ডে মোড</span>
-        <div class="switch" id="themeSwitch"></div>
+      <!-- Language Toggle -->
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="langBn" onclick="setLanguage('bn')">বাংলা</button>
+        <button class="lang-btn" id="langEn" onclick="setLanguage('en')">English</button>
+      </div>
+      
+      <!-- Theme Toggle -->
+      <div class="control-group">
+        <span class="control-label" id="themeLabel" data-i18n="dayMode">ডে মোড</span>
+        <div class="switch" id="themeSwitch" onclick="toggleTheme()"></div>
       </div>
       
       <div class="user-info">
         <div class="user-avatar">A</div>
-        <div><div style="font-size:13px;font-weight:600;">অ্যাডমিন</div><div style="font-size:11px;color:var(--text-muted);">মালিক</div></div>
+        <div>
+          <div style="font-size:13px;font-weight:600;" data-i18n="admin">অ্যাডমিন</div>
+          <div style="font-size:11px;color:var(--text-muted);" data-i18n="owner">মালিক</div>
+        </div>
       </div>
     </div>
   </div>
@@ -371,55 +688,63 @@ code { background: var(--bg-card-alt); padding: 2px 6px; border-radius: 3px; fon
   <div id="dashboard" class="content-section active">
     <div class="stats-grid">
       <div class="stat-card blue">
-        <div class="icon">💰</div>
-        <h3>আজকের বিক্রয়</h3>
+        <div class="icon-wrap">💰</div>
+        <h3 data-i18n="todaySales">আজকের বিক্রয়</h3>
         <div class="value" id="todaySales">৳0</div>
-        <div class="change up">↑ সকল বিক্রয়</div>
+        <div class="change up">↑ <span data-i18n="allSales">সকল বিক্রয়</span></div>
       </div>
       <div class="stat-card green">
-        <div class="icon">📦</div>
-        <h3>মোট পণ্য</h3>
+        <div class="icon-wrap">📦</div>
+        <h3 data-i18n="totalProducts">মোট পণ্য</h3>
         <div class="value" id="totalProducts">0</div>
-        <div class="change up">স্টকে আছে</div>
+        <div class="change up" data-i18n="inStock">স্টকে আছে</div>
       </div>
       <div class="stat-card orange">
-        <div class="icon">🧾</div>
-        <h3>মোট ইনভয়েস</h3>
+        <div class="icon-wrap">🧾</div>
+        <h3 data-i18n="totalInvoices">মোট ইনভয়েস</h3>
         <div class="value" id="totalInvoices">0</div>
-        <div class="change up">এই মাসে</div>
+        <div class="change up" data-i18n="thisMonth">এই মাসে</div>
       </div>
       <div class="stat-card red">
-        <div class="icon">⚠️</div>
-        <h3>স্টক কম</h3>
-        <div class="value" id="lowStock">0</div>
-        <div class="change down">পণ্য রিঅর্ডার করুন</div>
+        <div class="icon-wrap">💸</div>
+        <h3 data-i18n="totalDue">মোট বাকি</h3>
+        <div class="value" id="totalDue">৳0</div>
+        <div class="change down" data-i18n="toCollect">আদায় করতে হবে</div>
       </div>
       <div class="stat-card purple">
-        <div class="icon">👥</div>
-        <h3>মোট ক্রেতা</h3>
+        <div class="icon-wrap">👥</div>
+        <h3 data-i18n="totalCustomers">মোট ক্রেতা</h3>
         <div class="value" id="totalCustomers">0</div>
-        <div class="change up">নিবন্ধিত</div>
+        <div class="change up" data-i18n="registered">নিবন্ধিত</div>
       </div>
     </div>
 
     <div style="display:grid;grid-template-columns:2fr 1fr;gap:20px;">
       <div class="panel">
-        <div class="panel-header"><h2>📈 গত ৭ দিনের বিক্রয়</h2></div>
+        <div class="panel-header"><h2>📈 <span data-i18n="last7Days">গত ৭ দিনের বিক্রয়</span></h2></div>
         <div class="chart-container">
           <div class="chart-bar" id="salesChart"></div>
         </div>
       </div>
       <div class="panel">
-        <div class="panel-header"><h2>🕐 সাম্প্রতিক বিক্রয়</h2></div>
+        <div class="panel-header"><h2>🕐 <span data-i18n="recentSales">সাম্প্রতিক বিক্রয়</span></h2></div>
         <div id="recentSales"></div>
       </div>
     </div>
 
     <div class="panel">
-      <div class="panel-header"><h2>⚠️ স্টক কম আছে এমন পণ্য</h2></div>
+      <div class="panel-header"><h2>⚠️ <span data-i18n="lowStock">স্টক কম আছে এমন পণ্য</span></h2></div>
       <div class="table-container">
         <table>
-          <thead><tr><th>কোড</th><th>পণ্যের নাম</th><th>ক্যাটাগরি</th><th>বর্তমান স্টক</th><th>স্ট্যাটাস</th></tr></thead>
+          <thead>
+            <tr>
+              <th data-i18n="code">কোড</th>
+              <th data-i18n="productName">পণ্যের নাম</th>
+              <th data-i18n="category">ক্যাটাগরি</th>
+              <th data-i18n="currentStock">বর্তমান স্টক</th>
+              <th data-i18n="status">স্ট্যাটাস</th>
+            </tr>
+          </thead>
           <tbody id="lowStockTable"></tbody>
         </table>
       </div>
@@ -429,34 +754,70 @@ code { background: var(--bg-card-alt); padding: 2px 6px; border-radius: 3px; fon
   <!-- POS -->
   <div id="pos" class="content-section">
     <div class="scanner-box">
-      <h2>🔍 বারকোড স্ক্যান / পণ্য খুঁজুন</h2>
+      <h2>🔍 <span data-i18n="scanOrSearch">বারকোড স্ক্যান / পণ্য খুঁজুন</span></h2>
       <input type="text" id="posSearch" placeholder="বারকোড স্ক্যান করুন বা পণ্যের নাম লিখুন..." oninput="searchPOS(this.value)">
     </div>
+
+    <!-- Customer Required Alert -->
+    <div class="customer-required">
+      <span>⚠️ <span data-i18n="customerRequired">ক্রেতা নির্বাচন বাধ্যতামূলক</span></span>
+      <button class="btn btn-sm" style="background:#fff;color:#f7971e;" onclick="openCustomerModal(true)">➕ <span data-i18n="addCustomer">নতুন ক্রেতা</span></button>
+    </div>
+
     <div class="pos-container">
       <div class="pos-products">
-        <h3 style="margin-bottom:15px;">পণ্য তালিকা</h3>
+        <h3 style="margin-bottom:15px;" data-i18n="productList">পণ্য তালিকা</h3>
         <div class="product-grid" id="posProductGrid"></div>
       </div>
       <div class="pos-cart">
-        <h3 style="margin-bottom:15px;">🛒 কার্ট</h3>
-        <div class="cart-items" id="cartItems"><p style="text-align:center;color:var(--text-muted);padding:20px;">কার্ট খালি</p></div>
+        <h3 style="margin-bottom:15px;">🛒 <span data-i18n="cart">কার্ট</span></h3>
+        
+        <!-- Customer Selection (Required) -->
         <div class="form-group">
-          <label>ক্রেতা নির্বাচন</label>
-          <select class="form-control" id="cartCustomer">
-            <option value="">ওয়াক-ইন কাস্টমার</option>
+          <label data-i18n="selectCustomer">ক্রেতা নির্বাচন <span class="required">*</span></label>
+          <select class="form-control" id="cartCustomer" onchange="checkCustomerSelection()">
+            <option value="" data-i18n="selectCustomerPrompt">-- ক্রেতা নির্বাচন করুন --</option>
           </select>
         </div>
+
+        <div class="cart-items" id="cartItems"><p style="text-align:center;color:var(--text-muted);padding:20px;" data-i18n="cartEmpty">কার্ট খালি</p></div>
+        
         <div class="cart-total">
-          <div class="total-row"><span>সাবটোটাল:</span><span id="subtotal">৳0</span></div>
-          <div class="total-row"><span>ডিসকাউন্ট:</span>
+          <div class="total-row"><span data-i18n="subtotal">সাবটোটাল:</span><span id="subtotal">৳0</span></div>
+          <div class="total-row"><span data-i18n="discount">ডিসকাউন্ট:</span>
             <input type="number" id="discount" value="0" style="width:80px;padding:4px;border:1px solid var(--border-color);border-radius:4px;background:var(--bg-input);color:var(--text-primary);" oninput="updateCartTotal()">
           </div>
-          <div class="total-row"><span>ভ্যাট (৫%):</span><span id="vat">৳0</span></div>
-          <div class="total-row grand"><span>সর্বমোট:</span><span id="grandTotal">৳0</span></div>
+          <div class="total-row"><span data-i18n="vat">ভ্যাট:</span><span id="vat">৳0</span></div>
+          <div class="total-row grand"><span data-i18n="grandTotal">সর্বমোট:</span><span id="grandTotal">৳0</span></div>
         </div>
+
+        <!-- Payment Section -->
+        <div class="payment-section">
+          <div class="form-group" style="margin-bottom:10px;">
+            <label data-i18n="paymentMethod">পেমেন্ট পদ্ধতি</label>
+            <select class="form-control" id="paymentMethod" onchange="updatePayment()">
+              <option value="cash" data-i18n="cash">নগদ</option>
+              <option value="partial" data-i18n="partial">আংশিক পেমেন্ট</option>
+              <option value="due" data-i18n="fullDue">সম্পূর্ণ বাকি</option>
+              <option value="bkash" data-i18n="bkash">বিকাশ</option>
+              <option value="card" data-i18n="card">কার্ড</option>
+            </select>
+          </div>
+          <div class="payment-row" id="paymentRow" style="display:none;">
+            <div class="form-group" style="margin-bottom:0;">
+              <label data-i18n="paidAmount">পরিশোধিত</label>
+              <input type="number" class="form-control" id="paidAmount" value="0" oninput="updateDueAmount()">
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label data-i18n="dueAmount">বাকি</label>
+              <input type="number" class="form-control" id="dueAmount" readonly>
+            </div>
+          </div>
+        </div>
+
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px;">
-          <button class="btn btn-danger" onclick="clearCart()">🗑️ খালি</button>
-          <button class="btn btn-success" onclick="checkout()">💳 পেমেন্ট</button>
+          <button class="btn btn-danger" onclick="clearCart()">🗑️ <span data-i18n="clear">খালি</span></button>
+          <button class="btn btn-success" onclick="checkout()">💳 <span data-i18n="checkout">পেমেন্ট</span></button>
         </div>
       </div>
     </div>
@@ -466,15 +827,29 @@ code { background: var(--bg-card-alt); padding: 2px 6px; border-radius: 3px; fon
   <div id="products" class="content-section">
     <div class="panel">
       <div class="panel-header">
-        <h2>📦 পণ্য তালিকা</h2>
-        <button class="btn btn-primary" onclick="openProductModal()">➕ নতুন পণ্য</button>
+        <h2>📦 <span data-i18n="productList">পণ্য তালিকা</span></h2>
+        <button class="btn btn-primary" onclick="openProductModal()">➕ <span data-i18n="newProduct">নতুন পণ্য</span></button>
       </div>
-      <div class="search-bar">
-        <input type="text" class="form-control" placeholder="পণ্য খুঁজুন..." oninput="filterProducts(this.value)">
+      <div style="display:flex;gap:10px;margin-bottom:15px;flex-wrap:wrap;">
+        <input type="text" class="form-control" style="flex:1;min-width:200px;" placeholder="পণ্য খুঁজুন..." oninput="filterProducts(this.value)">
+        <select class="form-control" style="max-width:200px;" id="categoryFilter" onchange="filterByCategory(this.value)">
+          <option value="" data-i18n="allCategories">সব ক্যাটাগরি</option>
+        </select>
       </div>
       <div class="table-container">
         <table>
-          <thead><tr><th>বারকোড</th><th>নাম</th><th>ক্যাটাগরি</th><th>ক্রয় মূল্য</th><th>বিক্রয় মূল্য</th><th>স্টক</th><th>অ্যাকশন</th></tr></thead>
+          <thead>
+            <tr>
+              <th data-i18n="barcode">বারকোড</th>
+              <th data-i18n="name">নাম</th>
+              <th data-i18n="category">ক্যাটাগরি</th>
+              <th data-i18n="warranty">ওয়ারেন্টি</th>
+              <th data-i18n="costPrice">ক্রয় মূল্য</th>
+              <th data-i18n="salePrice">বিক্রয় মূল্য</th>
+              <th data-i18n="stock">স্টক</th>
+              <th data-i18n="action">অ্যাকশন</th>
+            </tr>
+          </thead>
           <tbody id="productsTable"></tbody>
         </table>
       </div>
@@ -484,11 +859,48 @@ code { background: var(--bg-card-alt); padding: 2px 6px; border-radius: 3px; fon
   <!-- Invoices -->
   <div id="invoices" class="content-section">
     <div class="panel">
-      <div class="panel-header"><h2>🧾 ইনভয়েস তালিকা</h2></div>
+      <div class="panel-header"><h2>🧾 <span data-i18n="invoiceList">ইনভয়েস তালিকা</span></h2></div>
       <div class="table-container">
         <table>
-          <thead><tr><th>ইনভয়েস নং</th><th>তারিখ</th><th>ক্রেতা</th><th>মোট</th><th>পেমেন্ট</th><th>অ্যাকশন</th></tr></thead>
+          <thead>
+            <tr>
+              <th data-i18n="invoiceNo">ইনভয়েস নং</th>
+              <th data-i18n="date">তারিখ</th>
+              <th data-i18n="customer">ক্রেতা</th>
+              <th data-i18n="total">মোট</th>
+              <th data-i18n="paid">পরিশোধ</th>
+              <th data-i18n="due">বাকি</th>
+              <th data-i18n="action">অ্যাকশন</th>
+            </tr>
+          </thead>
           <tbody id="invoicesTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Due List -->
+  <div id="dueList" class="content-section">
+    <div class="panel">
+      <div class="panel-header">
+        <h2>💸 <span data-i18n="dueList">বাকি তালিকা</span></h2>
+        <div class="stat-card blue" style="padding:10px 15px;margin:0;">
+          <div style="font-size:12px;color:var(--text-muted);" data-i18n="totalDueAmount">মোট বাকি</div>
+          <div style="font-size:20px;font-weight:bold;color:var(--danger);" id="totalDueAmount">৳0</div>
+        </div>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th data-i18n="customer">ক্রেতা</th>
+              <th data-i18n="phone">ফোন</th>
+              <th data-i18n="totalDue">মোট বাকি</th>
+              <th data-i18n="invoices">ইনভয়েস</th>
+              <th data-i18n="action">অ্যাকশন</th>
+            </tr>
+          </thead>
+          <tbody id="dueListTable"></tbody>
         </table>
       </div>
     </div>
@@ -498,12 +910,21 @@ code { background: var(--bg-card-alt); padding: 2px 6px; border-radius: 3px; fon
   <div id="customers" class="content-section">
     <div class="panel">
       <div class="panel-header">
-        <h2>👥 ক্রেতা তালিকা</h2>
-        <button class="btn btn-primary" onclick="openCustomerModal()">➕ নতুন ক্রেতা</button>
+        <h2>👥 <span data-i18n="customerList">ক্রেতা তালিকা</span></h2>
+        <button class="btn btn-primary" onclick="openCustomerModal()">➕ <span data-i18n="newCustomer">নতুন ক্রেতা</span></button>
       </div>
       <div class="table-container">
         <table>
-          <thead><tr><th>নাম</th><th>ফোন</th><th>ঠিকানা</th><th>মোট ক্রয়</th><th>অ্যাকশন</th></tr></thead>
+          <thead>
+            <tr>
+              <th data-i18n="name">নাম</th>
+              <th data-i18n="phone">ফোন</th>
+              <th data-i18n="address">ঠিকানা</th>
+              <th data-i18n="totalPurchase">মোট ক্রয়</th>
+              <th data-i18n="totalDue">মোট বাকি</th>
+              <th data-i18n="action">অ্যাকশন</th>
+            </tr>
+          </thead>
           <tbody id="customersTable"></tbody>
         </table>
       </div>
@@ -514,12 +935,20 @@ code { background: var(--bg-card-alt); padding: 2px 6px; border-radius: 3px; fon
   <div id="suppliers" class="content-section">
     <div class="panel">
       <div class="panel-header">
-        <h2>🏭 সরবরাহকারী তালিকা</h2>
-        <button class="btn btn-primary" onclick="openSupplierModal()">➕ নতুন সরবরাহকারী</button>
+        <h2>🏭 <span data-i18n="supplierList">সরবরাহকারী তালিকা</span></h2>
+        <button class="btn btn-primary" onclick="openSupplierModal()">➕ <span data-i18n="newSupplier">নতুন সরবরাহকারী</span></button>
       </div>
       <div class="table-container">
         <table>
-          <thead><tr><th>নাম</th><th>কোম্পানি</th><th>ফোন</th><th>ঠিকানা</th><th>অ্যাকশন</th></tr></thead>
+          <thead>
+            <tr>
+              <th data-i18n="name">নাম</th>
+              <th data-i18n="company">কোম্পানি</th>
+              <th data-i18n="phone">ফোন</th>
+              <th data-i18n="address">ঠিকানা</th>
+              <th data-i18n="action">অ্যাকশন</th>
+            </tr>
+          </thead>
           <tbody id="suppliersTable"></tbody>
         </table>
       </div>
@@ -530,12 +959,21 @@ code { background: var(--bg-card-alt); padding: 2px 6px; border-radius: 3px; fon
   <div id="purchase" class="content-section">
     <div class="panel">
       <div class="panel-header">
-        <h2>📥 ক্রয় তালিকা</h2>
-        <button class="btn btn-primary" onclick="openPurchaseModal()">➕ নতুন ক্রয়</button>
+        <h2>📥 <span data-i18n="purchaseList">ক্রয় তালিকা</span></h2>
+        <button class="btn btn-primary" onclick="openPurchaseModal()">➕ <span data-i18n="newPurchase">নতুন ক্রয়</span></button>
       </div>
       <div class="table-container">
         <table>
-          <thead><tr><th>ক্রয় নং</th><th>তারিখ</th><th>সরবরাহকারী</th><th>পণ্য</th><th>পরিমাণ</th><th>মোট</th></tr></thead>
+          <thead>
+            <tr>
+              <th data-i18n="purchaseNo">ক্রয় নং</th>
+              <th data-i18n="date">তারিখ</th>
+              <th data-i18n="supplier">সরবরাহকারী</th>
+              <th data-i18n="product">পণ্য</th>
+              <th data-i18n="quantity">পরিমাণ</th>
+              <th data-i18n="total">মোট</th>
+            </tr>
+          </thead>
           <tbody id="purchasesTable"></tbody>
         </table>
       </div>
@@ -545,28 +983,28 @@ code { background: var(--bg-card-alt); padding: 2px 6px; border-radius: 3px; fon
   <!-- Barcode -->
   <div id="barcode" class="content-section">
     <div class="panel">
-      <div class="panel-header"><h2>📶 বারকোড জেনারেটর</h2></div>
-      <div class="alert alert-info">💡 পণ্য নির্বাচন করুন অথবা কাস্টম টেক্সট দিয়ে বারকোড তৈরি করুন</div>
+      <div class="panel-header"><h2>📶 <span data-i18n="barcodeGenerator">বারকোড জেনারেটর</span></h2></div>
+      <div class="alert alert-info">💡 <span data-i18n="barcodeTip">পণ্য নির্বাচন করুন অথবা কাস্টম টেক্সট দিয়ে বারকোড তৈরি করুন</span></div>
       <div class="form-row">
         <div class="form-group">
-          <label>পণ্য নির্বাচন</label>
+          <label data-i18n="selectProduct">পণ্য নির্বাচন</label>
           <select class="form-control" id="barcodeProduct" onchange="generateBarcodeFromProduct()">
             <option value="">-- নির্বাচন করুন --</option>
           </select>
         </div>
         <div class="form-group">
-          <label>কাস্টম টেক্সট</label>
+          <label data-i18n="customText">কাস্টম টেক্সট</label>
           <input type="text" class="form-control" id="barcodeText" placeholder="বারকোড টেক্সট" oninput="generateCustomBarcode()">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label>প্রিন্ট কপি</label>
+          <label data-i18n="printCopies">প্রিন্ট কপি</label>
           <input type="number" class="form-control" id="barcodeCopies" value="1" min="1" max="50">
         </div>
         <div class="form-group">
           <label>&nbsp;</label>
-          <button class="btn btn-primary" style="width:100%;" onclick="printBarcodes()">🖨️ বারকোড প্রিন্ট</button>
+          <button class="btn btn-primary" style="width:100%;" onclick="printBarcodes()">🖨️ <span data-i18n="printBarcode">বারকোড প্রিন্ট</span></button>
         </div>
       </div>
       <div class="barcode-container" id="barcodeContainer" style="margin-top:20px;"></div>
@@ -576,18 +1014,18 @@ code { background: var(--bg-card-alt); padding: 2px 6px; border-radius: 3px; fon
   <!-- Reports -->
   <div id="reports" class="content-section">
     <div class="panel">
-      <div class="panel-header"><h2>📈 রিপোর্ট</h2></div>
+      <div class="panel-header"><h2>📈 <span data-i18n="report">রিপোর্ট</span></h2></div>
       <div class="form-row">
         <div class="form-group">
-          <label>শুরুর তারিখ</label>
+          <label data-i18n="fromDate">শুরুর তারিখ</label>
           <input type="date" class="form-control" id="reportFrom">
         </div>
         <div class="form-group">
-          <label>শেষ তারিখ</label>
+          <label data-i18n="toDate">শেষ তারিখ</label>
           <input type="date" class="form-control" id="reportTo">
         </div>
       </div>
-      <button class="btn btn-primary" onclick="generateReport()">📊 রিপোর্ট তৈরি করুন</button>
+      <button class="btn btn-primary" onclick="generateReport()">📊 <span data-i18n="generateReport">রিপোর্ট তৈরি করুন</span></button>
     </div>
     <div id="reportResult"></div>
   </div>
@@ -595,33 +1033,50 @@ code { background: var(--bg-card-alt); padding: 2px 6px; border-radius: 3px; fon
   <!-- Settings -->
   <div id="settings" class="content-section">
     <div class="panel">
-      <div class="panel-header"><h2>⚙️ দোকানের তথ্য</h2></div>
+      <div class="panel-header"><h2>⚙️ <span data-i18n="shopInfo">দোকানের তথ্য</span></h2></div>
       <div class="form-row">
         <div class="form-group">
-          <label>দোকানের নাম</label>
+          <label data-i18n="shopName">দোকানের নাম</label>
           <input type="text" class="form-control" id="shopName" value="কম্পিউটার শপ">
         </div>
         <div class="form-group">
-          <label>ফোন</label>
+          <label data-i18n="phone">ফোন</label>
           <input type="text" class="form-control" id="shopPhone" value="01700-000000">
         </div>
       </div>
       <div class="form-group">
-        <label>ঠিকানা</label>
+        <label data-i18n="address">ঠিকানা</label>
         <input type="text" class="form-control" id="shopAddress" value="ঢাকা, বাংলাদেশ">
-      </div>
+        </div>
       <div class="form-row">
         <div class="form-group">
-          <label>ভ্যাট (%)</label>
+          <label data-i18n="vatPercent">ভ্যাট (%)</label>
           <input type="number" class="form-control" id="vatRate" value="5">
         </div>
         <div class="form-group">
-          <label>মুদ্রা</label>
+          <label data-i18n="currency">মুদ্রা</label>
           <input type="text" class="form-control" id="currency" value="৳">
         </div>
       </div>
-      <button class="btn btn-success" onclick="saveSettings()">💾 সেটিংস সংরক্ষণ</button>
-      <button class="btn btn-danger" onclick="resetData()" style="margin-left:10px;">🗑️ সব ডাটা রিসেট</button>
+      <button class="btn btn-success" onclick="saveSettings()">💾 <span data-i18n="saveSettings">সেটিংস সংরক্ষণ</span></button>
+      <button class="btn btn-danger" onclick="resetData()" style="margin-left:10px;">🗑️ <span data-i18n="resetData">সব ডাটা রিসেট</span></button>
+    </div>
+
+    <!-- Category Management -->
+    <div class="panel">
+      <div class="panel-header"><h2>🏷️ <span data-i18n="categoryManagement">ক্যাটাগরি ম্যানেজমেন্ট</span></h2></div>
+      <div class="alert alert-info">💡 <span data-i18n="categoryTip">নতুন ক্যাটাগরি যোগ করুন বা পুরনোটি মুছে ফেলুন</span></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label data-i18n="newCategory">নতুন ক্যাটাগরি</label>
+          <input type="text" class="form-control" id="newCategoryName" placeholder="ক্যাটাগরির নাম লিখুন">
+        </div>
+        <div class="form-group">
+          <label>&nbsp;</label>
+          <button class="btn btn-success" style="width:100%;" onclick="addCategory()">➕ <span data-i18n="addCategory">ক্যাটাগরি যোগ</span></button>
+        </div>
+      </div>
+      <div class="category-list" id="categoryList"></div>
     </div>
   </div>
 </div>
@@ -630,61 +1085,60 @@ code { background: var(--bg-card-alt); padding: 2px 6px; border-radius: 3px; fon
 <div class="modal" id="productModal">
   <div class="modal-content">
     <div class="modal-header">
-      <h2 id="productModalTitle">নতুন পণ্য যোগ করুন</h2>
+      <h2 id="productModalTitle" data-i18n="newProduct">নতুন পণ্য যোগ করুন</h2>
       <button class="close-btn" onclick="closeModal('productModal')">&times;</button>
     </div>
     <input type="hidden" id="productId">
     <div class="form-row">
       <div class="form-group">
-        <label>পণ্যের নাম *</label>
+        <label data-i18n="productName">পণ্যের নাম <span class="required">*</span></label>
         <input type="text" class="form-control" id="productName" required>
       </div>
       <div class="form-group">
-        <label>বারকোড</label>
+        <label data-i18n="barcode">বারকোড</label>
         <input type="text" class="form-control" id="productBarcode" placeholder="অটো জেনারেট হবে">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label>ক্যাটাগরি</label>
-        <select class="form-control" id="productCategory">
-          <option>ল্যাপটপ</option><option>ডেস্কটপ</option><option>মনিটর</option><option>কীবোর্ড</option>
-          <option>মাউস</option><option>প্রিন্টার</option><option>হার্ডডিস্ক/SSD</option><option>র‍্যাম</option>
-          <option>প্রসেসর</option><option>মাদারবোর্ড</option><option>গ্রাফিক্স কার্ড</option><option>পাওয়ার সাপ্লাই</option>
-          <option>ক্যাবল/এক্সেসরিজ</option><option>সফটওয়্যার</option><option>অন্যান্য</option>
-        </select>
+        <label data-i18n="category">ক্যাটাগরি <span class="required">*</span></label>
+        <select class="form-control" id="productCategory"></select>
       </div>
       <div class="form-group">
-        <label>ব্র্যান্ড</label>
+        <label data-i18n="brand">ব্র্যান্ড</label>
         <input type="text" class="form-control" id="productBrand">
       </div>
     </div>
-    <div class="form-row">
+    <div class="form-row-3">
       <div class="form-group">
-        <label>ক্রয় মূল্য (৳) *</label>
+        <label data-i18n="costPrice">ক্রয় মূল্য <span class="required">*</span></label>
         <input type="number" class="form-control" id="productCost" required>
       </div>
       <div class="form-group">
-        <label>বিক্রয় মূল্য (৳) *</label>
+        <label data-i18n="salePrice">বিক্রয় মূল্য <span class="required">*</span></label>
         <input type="number" class="form-control" id="productPrice" required>
+      </div>
+      <div class="form-group">
+        <label data-i18n="warrantyMonths">ওয়ারেন্টি (মাস)</label>
+        <input type="number" class="form-control" id="productWarranty" value="0" min="0">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label>স্টক পরিমাণ *</label>
+        <label data-i18n="stockQuantity">স্টক পরিমাণ <span class="required">*</span></label>
         <input type="number" class="form-control" id="productStock" required>
       </div>
       <div class="form-group">
-        <label>সর্বনিম্ন স্টক</label>
+        <label data-i18n="minStock">সর্বনিম্ন স্টক</label>
         <input type="number" class="form-control" id="productMinStock" value="5">
       </div>
     </div>
     <div class="form-group">
-      <label>বিবরণ</label>
+      <label data-i18n="description">বিবরণ</label>
       <textarea class="form-control" id="productDesc" rows="2"></textarea>
     </div>
-    <button class="btn btn-success" onclick="saveProduct()">💾 সংরক্ষণ</button>
-    <button class="btn btn-danger" onclick="closeModal('productModal')" style="margin-left:10px;">বাতিল</button>
+    <button class="btn btn-success" onclick="saveProduct()">💾 <span data-i18n="save">সংরক্ষণ</span></button>
+    <button class="btn btn-outline" onclick="closeModal('productModal')" style="margin-left:10px;" data-i18n="cancel">বাতিল</button>
   </div>
 </div>
 
@@ -692,29 +1146,29 @@ code { background: var(--bg-card-alt); padding: 2px 6px; border-radius: 3px; fon
 <div class="modal" id="customerModal">
   <div class="modal-content">
     <div class="modal-header">
-      <h2>নতুন ক্রেতা</h2>
+      <h2 data-i18n="newCustomer">নতুন ক্রেতা</h2>
       <button class="close-btn" onclick="closeModal('customerModal')">&times;</button>
     </div>
     <input type="hidden" id="customerId">
     <div class="form-group">
-      <label>নাম *</label>
+      <label data-i18n="name">নাম <span class="required">*</span></label>
       <input type="text" class="form-control" id="customerName" required>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label>ফোন</label>
-        <input type="text" class="form-control" id="customerPhone">
+        <label data-i18n="phone">ফোন <span class="required">*</span></label>
+        <input type="text" class="form-control" id="customerPhone" required>
       </div>
       <div class="form-group">
-        <label>ইমেইল</label>
+        <label data-i18n="email">ইমেইল</label>
         <input type="email" class="form-control" id="customerEmail">
       </div>
     </div>
     <div class="form-group">
-      <label>ঠিকানা</label>
+      <label data-i18n="address">ঠিকানা</label>
       <textarea class="form-control" id="customerAddress" rows="2"></textarea>
     </div>
-    <button class="btn btn-success" onclick="saveCustomer()">💾 সংরক্ষণ</button>
+    <button class="btn btn-success" onclick="saveCustomer()">💾 <span data-i18n="save">সংরক্ষণ</span></button>
   </div>
 </div>
 
@@ -722,29 +1176,29 @@ code { background: var(--bg-card-alt); padding: 2px 6px; border-radius: 3px; fon
 <div class="modal" id="supplierModal">
   <div class="modal-content">
     <div class="modal-header">
-      <h2>নতুন সরবরাহকারী</h2>
+      <h2 data-i18n="newSupplier">নতুন সরবরাহকারী</h2>
       <button class="close-btn" onclick="closeModal('supplierModal')">&times;</button>
     </div>
     <input type="hidden" id="supplierId">
     <div class="form-group">
-      <label>নাম *</label>
+      <label data-i18n="name">নাম <span class="required">*</span></label>
       <input type="text" class="form-control" id="supplierName" required>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label>কোম্পানি</label>
+        <label data-i18n="company">কোম্পানি</label>
         <input type="text" class="form-control" id="supplierCompany">
       </div>
       <div class="form-group">
-        <label>ফোন</label>
+        <label data-i18n="phone">ফোন</label>
         <input type="text" class="form-control" id="supplierPhone">
       </div>
     </div>
     <div class="form-group">
-      <label>ঠিকানা</label>
+      <label data-i18n="address">ঠিকানা</label>
       <textarea class="form-control" id="supplierAddress" rows="2"></textarea>
     </div>
-    <button class="btn btn-success" onclick="saveSupplier()">💾 সংরক্ষণ</button>
+    <button class="btn btn-success" onclick="saveSupplier()">💾 <span data-i18n="save">সংরক্ষণ</span></button>
   </div>
 </div>
 
@@ -752,30 +1206,54 @@ code { background: var(--bg-card-alt); padding: 2px 6px; border-radius: 3px; fon
 <div class="modal" id="purchaseModal">
   <div class="modal-content">
     <div class="modal-header">
-      <h2>নতুন ক্রয়</h2>
+      <h2 data-i18n="newPurchase">নতুন ক্রয়</h2>
       <button class="close-btn" onclick="closeModal('purchaseModal')">&times;</button>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label>সরবরাহকারী *</label>
+        <label data-i18n="supplier">সরবরাহকারী <span class="required">*</span></label>
         <select class="form-control" id="purchaseSupplier"></select>
       </div>
       <div class="form-group">
-        <label>পণ্য *</label>
+        <label data-i18n="product">পণ্য <span class="required">*</span></label>
         <select class="form-control" id="purchaseProduct"></select>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label>পরিমাণ *</label>
+        <label data-i18n="quantity">পরিমাণ <span class="required">*</span></label>
         <input type="number" class="form-control" id="purchaseQty" value="1" min="1">
       </div>
       <div class="form-group">
-        <label>ক্রয় মূল্য *</label>
+        <label data-i18n="costPrice">ক্রয় মূল্য <span class="required">*</span></label>
         <input type="number" class="form-control" id="purchaseCost">
       </div>
     </div>
-    <button class="btn btn-success" onclick="savePurchase()">💾 সংরক্ষণ</button>
+    <button class="btn btn-success" onclick="savePurchase()">💾 <span data-i18n="save">সংরক্ষণ</span></button>
+  </div>
+</div>
+
+<!-- Due Payment Modal -->
+<div class="modal" id="duePaymentModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 data-i18n="payDue">বাকি পরিশোধ</h2>
+      <button class="close-btn" onclick="closeModal('duePaymentModal')">&times;</button>
+    </div>
+    <input type="hidden" id="dueCustomerId">
+    <div class="alert alert-info">
+      <strong data-i18n="customer">ক্রেতা:</strong> <span id="dueCustomerName"></span><br>
+      <strong data-i18n="totalDue">মোট বাকি:</strong> <span id="dueCustomerTotal" style="color:var(--danger);font-weight:bold;"></span>
+    </div>
+    <div class="form-group">
+      <label data-i18n="payAmount">পরিশোধের পরিমাণ <span class="required">*</span></label>
+      <input type="number" class="form-control" id="duePaymentAmount" min="0">
+    </div>
+    <div class="form-group">
+      <label data-i18n="note">নোট</label>
+      <input type="text" class="form-control" id="duePaymentNote" placeholder="পেমেন্ট নোট">
+    </div>
+    <button class="btn btn-success" onclick="processDuePayment()">💰 <span data-i18n="payNow">এখন পরিশোধ করুন</span></button>
   </div>
 </div>
 
@@ -786,46 +1264,228 @@ code { background: var(--bg-card-alt); padding: 2px 6px; border-radius: 3px; fon
 <div class="toast" id="toast"></div>
 
 <script>
-// ========== Theme Management ==========
-function initTheme() {
-  const savedTheme = localStorage.getItem('erp_theme') || 'light';
-  if (savedTheme === 'dark') {
-    document.body.classList.add('dark-mode');
-    document.getElementById('themeSwitch').classList.add('dark');
-    document.getElementById('themeLabel').textContent = 'নাইট মোড';
-  } else {
-    document.getElementById('themeLabel').textContent = 'ডে মোড';
+// ========== Translations ==========
+const translations = {
+  bn: {
+    shopName: 'কম্পিউটার শপ', erpSystem: 'ERP ম্যানেজমেন্ট সিস্টেম',
+    dashboard: 'ড্যাশবোর্ড', pos: 'পয়েন্ট অফ সেল', products: 'পণ্য তালিকা',
+    invoices: 'ইনভয়েস', dueList: 'বাকি তালিকা', customers: 'ক্রেতা',
+    suppliers: 'সরবরাহকারী', purchase: 'ক্রয়', barcode: 'বারকোড',
+    reports: 'রিপোর্ট', settings: 'সেটিংস',
+    admin: 'অ্যাডমিন', owner: 'মালিক', dayMode: 'ডে মোড', nightMode: 'নাইট মোড',
+    todaySales: 'আজকের বিক্রয়', allSales: 'সকল বিক্রয়',
+    totalProducts: 'মোট পণ্য', inStock: 'স্টকে আছে',
+    totalInvoices: 'মোট ইনভয়েস', thisMonth: 'এই মাসে',
+    totalDue: 'মোট বাকি', toCollect: 'আদায় করতে হবে',
+    totalCustomers: 'মোট ক্রেতা', registered: 'নিবন্ধিত',
+    last7Days: 'গত ৭ দিনের বিক্রয়', recentSales: 'সাম্প্রতিক বিক্রয়',
+    lowStock: 'স্টক কম আছে এমন পণ্য',
+    code: 'কোড', productName: 'পণ্যের নাম', category: 'ক্যাটাগরি',
+    currentStock: 'বর্তমান স্টক', status: 'স্ট্যাটাস',
+    scanOrSearch: 'বারকোড স্ক্যান / পণ্য খুঁজুন',
+    customerRequired: 'ক্রেতা নির্বাচন বাধ্যতামূলক',
+    addCustomer: 'নতুন ক্রেতা', productList: 'পণ্য তালিকা',
+    cart: 'কার্ট', selectCustomer: 'ক্রেতা নির্বাচন',
+    selectCustomerPrompt: '-- ক্রেতা নির্বাচন করুন --',
+    cartEmpty: 'কার্ট খালি', subtotal: 'সাবটোটাল:',
+    discount: 'ডিসকাউন্ট:', vat: 'ভ্যাট:', grandTotal: 'সর্বমোট:',
+    paymentMethod: 'পেমেন্ট পদ্ধতি', cash: 'নগদ', partial: 'আংশিক পেমেন্ট',
+    fullDue: 'সম্পূর্ণ বাকি', bkash: 'বিকাশ', card: 'কার্ড',
+    paidAmount: 'পরিশোধিত', dueAmount: 'বাকি',
+    clear: 'খালি', checkout: 'পেমেন্ট',
+    newProduct: 'নতুন পণ্য যোগ করুন', editProduct: 'পণ্য সম্পাদনা',
+    allCategories: 'সব ক্যাটাগরি',
+    barcode: 'বারকোড', name: 'নাম', warranty: 'ওয়ারেন্টি',
+    costPrice: 'ক্রয় মূল্য', salePrice: 'বিক্রয় মূল্য',
+    stock: 'স্টক', action: 'অ্যাকশন',
+    invoiceList: 'ইনভয়েস তালিকা', invoiceNo: 'ইনভয়েস নং',
+    date: 'তারিখ', customer: 'ক্রেতা', total: 'মোট',
+    paid: 'পরিশোধ', due: 'বাকি',
+    totalDueAmount: 'মোট বাকি', phone: 'ফোন',
+    invoices: 'ইনভয়েস', customerList: 'ক্রেতা তালিকা',
+    newCustomer: 'নতুন ক্রেতা', totalPurchase: 'মোট ক্রয়',
+    supplierList: 'সরবরাহকারী তালিকা', newSupplier: 'নতুন সরবরাহকারী',
+    company: 'কোম্পানি', address: 'ঠিকানা',
+    purchaseList: 'ক্রয় তালিকা', newPurchase: 'নতুন ক্রয়',
+    purchaseNo: 'ক্রয় নং', supplier: 'সরবরাহকারী',
+    product: 'পণ্য', quantity: 'পরিমাণ',
+    barcodeGenerator: 'বারকোড জেনারেটর',
+    barcodeTip: 'পণ্য নির্বাচন করুন অথবা কাস্টম টেক্সট দিয়ে বারকোড তৈরি করুন',
+    selectProduct: 'পণ্য নির্বাচন', customText: 'কাস্টম টেক্সট',
+    printCopies: 'প্রিন্ট কপি', printBarcode: 'বারকোড প্রিন্ট',
+    report: 'রিপোর্ট', fromDate: 'শুরুর তারিখ', toDate: 'শেষ তারিখ',
+    generateReport: 'রিপোর্ট তৈরি করুন',
+    shopInfo: 'দোকানের তথ্য', shopName: 'দোকানের নাম',
+    vatPercent: 'ভ্যাট (%)', currency: 'মুদ্রা',
+    saveSettings: 'সেটিংস সংরক্ষণ', resetData: 'সব ডাটা রিসেট',
+    categoryManagement: 'ক্যাটাগরি ম্যানেজমেন্ট',
+    categoryTip: 'নতুন ক্যাটাগরি যোগ করুন বা পুরনোটি মুছে ফেলুন',
+    newCategory: 'নতুন ক্যাটাগরি', addCategory: 'ক্যাটাগরি যোগ',
+    brand: 'ব্র্যান্ড', warrantyMonths: 'ওয়ারেন্টি (মাস)',
+    stockQuantity: 'স্টক পরিমাণ', minStock: 'সর্বনিম্ন স্টক',
+    description: 'বিবরণ', save: 'সংরক্ষণ', cancel: 'বাতিল',
+    email: 'ইমেইল', payDue: 'বাকি পরিশোধ',
+    payAmount: 'পরিশোধের পরিমাণ', note: 'নোট', payNow: 'এখন পরিশোধ করুন',
+    months: 'মাস', lowStockBadge: 'কম স্টক', inStockBadge: 'স্টক আছে',
+    walkInRemoved: 'ওয়াক-ইন অপশন সরানো হয়েছে',
+    selectCustomerFirst: 'প্রথমে ক্রেতা নির্বাচন করুন!',
+    cartEmptyAlert: 'কার্ট খালি!',
+    invoiceCreated: 'ইনভয়েস তৈরি হয়েছে!',
+    productSaved: 'পণ্য সংরক্ষণ হয়েছে!',
+    nameRequired: 'নাম আবশ্যক!',
+    customerSaved: 'ক্রেতা সংরক্ষণ হয়েছে!',
+    supplierSaved: 'সরবরাহকারী সংরক্ষণ হয়েছে!',
+    purchaseSaved: 'ক্রয় সংরক্ষণ ও স্টক আপডেট হয়েছে!',
+    categoryAdded: 'ক্যাটাগরি যোগ হয়েছে!',
+    categoryRemoved: 'ক্যাটাগরি মুছে ফেলা হয়েছে!',
+    settingsSaved: 'সেটিংস সংরক্ষণ হয়েছে!',
+    themeNight: '🌙 নাইট মোড চালু হয়েছে',
+    themeDay: '☀️ ডে মোড চালু হয়েছে',
+    thanks: 'ধন্যবাদ আপনার ক্রয়ের জন্য!',
+    comeAgain: 'আবার আসবেন',
+    warrantyInfo: 'ওয়ারেন্টি তথ্য',
+    dueInfo: 'বাকি তথ্য',
+    totalDueText: 'মোট বাকি',
+    noDue: 'কোন বাকি নেই ✓',
+    noData: 'কোন ডাটা নেই',
+    noSales: 'কোন বিক্রয় নেই',
+    stockOk: 'সব পণ্যের স্টক পর্যাপ্ত ✓'
+  },
+  en: {
+    shopName: 'Computer Shop', erpSystem: 'ERP Management System',
+    dashboard: 'Dashboard', pos: 'Point of Sale', products: 'Products',
+    invoices: 'Invoices', dueList: 'Due List', customers: 'Customers',
+    suppliers: 'Suppliers', purchase: 'Purchase', barcode: 'Barcode',
+    reports: 'Reports', settings: 'Settings',
+    admin: 'Admin', owner: 'Owner', dayMode: 'Day Mode', nightMode: 'Night Mode',
+    todaySales: 'Today Sales', allSales: 'All Sales',
+    totalProducts: 'Total Products', inStock: 'In Stock',
+    totalInvoices: 'Total Invoices', thisMonth: 'This Month',
+    totalDue: 'Total Due', toCollect: 'To Collect',
+    totalCustomers: 'Total Customers', registered: 'Registered',
+    last7Days: 'Last 7 Days Sales', recentSales: 'Recent Sales',
+    lowStock: 'Low Stock Products',
+    code: 'Code', productName: 'Product Name', category: 'Category',
+    currentStock: 'Current Stock', status: 'Status',
+    scanOrSearch: 'Scan Barcode / Search Product',
+    customerRequired: 'Customer selection is required',
+    addCustomer: 'Add Customer', productList: 'Product List',
+    cart: 'Cart', selectCustomer: 'Select Customer',
+    selectCustomerPrompt: '-- Select Customer --',
+    cartEmpty: 'Cart is empty', subtotal: 'Subtotal:',
+    discount: 'Discount:', vat: 'VAT:', grandTotal: 'Grand Total:',
+    paymentMethod: 'Payment Method', cash: 'Cash', partial: 'Partial Payment',
+    fullDue: 'Full Due', bkash: 'bKash', card: 'Card',
+    paidAmount: 'Paid Amount', dueAmount: 'Due Amount',
+    clear: 'Clear', checkout: 'Checkout',
+    newProduct: 'Add New Product', editProduct: 'Edit Product',
+    allCategories: 'All Categories',
+    barcode: 'Barcode', name: 'Name', warranty: 'Warranty',
+    costPrice: 'Cost Price', salePrice: 'Sale Price',
+    stock: 'Stock', action: 'Action',
+    invoiceList: 'Invoice List', invoiceNo: 'Invoice No',
+    date: 'Date', customer: 'Customer', total: 'Total',
+    paid: 'Paid', due: 'Due',
+    totalDueAmount: 'Total Due', phone: 'Phone',
+    invoices: 'Invoices', customerList: 'Customer List',
+    newCustomer: 'New Customer', totalPurchase: 'Total Purchase',
+    supplierList: 'Supplier List', newSupplier: 'New Supplier',
+    company: 'Company', address: 'Address',
+    purchaseList: 'Purchase List', newPurchase: 'New Purchase',
+    purchaseNo: 'Purchase No', supplier: 'Supplier',
+    product: 'Product', quantity: 'Quantity',
+    barcodeGenerator: 'Barcode Generator',
+    barcodeTip: 'Select product or enter custom text to generate barcode',
+    selectProduct: 'Select Product', customText: 'Custom Text',
+    printCopies: 'Print Copies', printBarcode: 'Print Barcode',
+    report: 'Report', fromDate: 'From Date', toDate: 'To Date',
+    generateReport: 'Generate Report',
+    shopInfo: 'Shop Information', shopName: 'Shop Name',
+    vatPercent: 'VAT (%)', currency: 'Currency',
+    saveSettings: 'Save Settings', resetData: 'Reset All Data',
+    categoryManagement: 'Category Management',
+    categoryTip: 'Add new category or remove existing one',
+    newCategory: 'New Category', addCategory: 'Add Category',
+    brand: 'Brand', warrantyMonths: 'Warranty (Months)',
+    stockQuantity: 'Stock Quantity', minStock: 'Minimum Stock',
+    description: 'Description', save: 'Save', cancel: 'Cancel',
+    email: 'Email', payDue: 'Pay Due',
+    payAmount: 'Payment Amount', note: 'Note', payNow: 'Pay Now',
+    months: 'months', lowStockBadge: 'Low Stock', inStockBadge: 'In Stock',
+    walkInRemoved: 'Walk-in option removed',
+    selectCustomerFirst: 'Please select customer first!',
+    cartEmptyAlert: 'Cart is empty!',
+    invoiceCreated: 'Invoice created!',
+    productSaved: 'Product saved!',
+    nameRequired: 'Name is required!',
+    customerSaved: 'Customer saved!',
+    supplierSaved: 'Supplier saved!',
+    purchaseSaved: 'Purchase saved & stock updated!',
+    categoryAdded: 'Category added!',
+    categoryRemoved: 'Category removed!',
+    settingsSaved: 'Settings saved!',
+    themeNight: '🌙 Night mode enabled',
+    themeDay: '☀️ Day mode enabled',
+    thanks: 'Thank you for your purchase!',
+    comeAgain: 'Please come again',
+    warrantyInfo: 'Warranty Info',
+    dueInfo: 'Due Info',
+    totalDueText: 'Total Due',
+    noDue: 'No dues ✓',
+    noData: 'No data',
+    noSales: 'No sales',
+    stockOk: 'All products have sufficient stock ✓'
   }
+};
+
+let currentLang = localStorage.getItem('erp_lang') || 'bn';
+
+function t(key) {
+  return translations[currentLang][key] || key;
 }
 
-function toggleTheme() {
-  const body = document.body;
-  const switchEl = document.getElementById('themeSwitch');
-  const label = document.getElementById('themeLabel');
-  
-  body.classList.toggle('dark-mode');
-  switchEl.classList.toggle('dark');
-  
-  const isDark = body.classList.contains('dark-mode');
-  label.textContent = isDark ? 'নাইট মোড' : 'ডে মোড';
-  localStorage.setItem('erp_theme', isDark ? 'dark' : 'light');
-  
-  toast(isDark ? '🌙 নাইট মোড চালু হয়েছে' : '☀️ ডে মোড চালু হয়েছে');
+function applyTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[currentLang][key]) {
+      el.textContent = translations[currentLang][key];
+    }
+  });
+  document.documentElement.lang = currentLang;
 }
 
-// Initialize theme on load
-initTheme();
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('erp_lang', lang);
+  document.getElementById('langBn').classList.toggle('active', lang === 'bn');
+  document.getElementById('langEn').classList.toggle('active', lang === 'en');
+  applyTranslations();
+  // Reload current section
+  const active = document.querySelector('.sidebar-menu li.active');
+  if (active) {
+    const sectionId = active.getAttribute('onclick').match(/'([^']+)'/)[1];
+    showSection(sectionId, active);
+  }
+  toast(lang === 'bn' ? 'বাংলা ভাষা চালু' : 'English enabled');
+}
 
-// Data Management
+// ========== Data Management ==========
 let data = {
   products: JSON.parse(localStorage.getItem('erp_products') || '[]'),
   customers: JSON.parse(localStorage.getItem('erp_customers') || '[]'),
   suppliers: JSON.parse(localStorage.getItem('erp_suppliers') || '[]'),
   invoices: JSON.parse(localStorage.getItem('erp_invoices') || '[]'),
   purchases: JSON.parse(localStorage.getItem('erp_purchases') || '[]'),
+  categories: JSON.parse(localStorage.getItem('erp_categories') || 'null'),
   settings: JSON.parse(localStorage.getItem('erp_settings') || '{"shopName":"কম্পিউটার শপ","shopPhone":"01700-000000","shopAddress":"ঢাকা, বাংলাদেশ","vatRate":5,"currency":"৳","invoiceCounter":1000}'),
   cart: []
 };
+
+// Default categories
+if (!data.categories) {
+  data.categories = ['ল্যাপটপ', 'ডেস্কটপ', 'মনিটর', 'কীবোর্ড', 'মাউস', 'প্রিন্টার', 'হার্ডডিস্ক/SSD', 'র‍্যাম', 'প্রসেসর', 'মাদারবোর্ড', 'গ্রাফিক্স কার্ড', 'পাওয়ার সাপ্লাই', 'ক্যাবল/এক্সেসরিজ', 'সফটওয়্যার', 'অন্যান্য'];
+  localStorage.setItem('erp_categories', JSON.stringify(data.categories));
+}
 
 function saveData() {
   localStorage.setItem('erp_products', JSON.stringify(data.products));
@@ -833,75 +1493,121 @@ function saveData() {
   localStorage.setItem('erp_suppliers', JSON.stringify(data.suppliers));
   localStorage.setItem('erp_invoices', JSON.stringify(data.invoices));
   localStorage.setItem('erp_purchases', JSON.stringify(data.purchases));
+  localStorage.setItem('erp_categories', JSON.stringify(data.categories));
   localStorage.setItem('erp_settings', JSON.stringify(data.settings));
 }
 
+// Sample data
 if (data.products.length === 0) {
   data.products = [
-    {id:1, barcode:'100001', name:'HP Laptop 15s', category:'ল্যাপটপ', brand:'HP', cost:45000, price:55000, stock:10, minStock:3, desc:'Intel Core i5, 8GB RAM'},
-    {id:2, barcode:'100002', name:'Dell Monitor 22"', category:'মনিটর', brand:'Dell', cost:12000, price:15000, stock:8, minStock:3, desc:'LED Full HD'},
-    {id:3, barcode:'100003', name:'Logitech Mouse', category:'মাউস', brand:'Logitech', cost:500, price:800, stock:25, minStock:5, desc:'Wireless'},
-    {id:4, barcode:'100004', name:'A4Tech Keyboard', category:'কীবোর্ড', brand:'A4Tech', cost:700, price:1100, stock:20, minStock:5, desc:'USB Wired'},
-    {id:5, barcode:'100005', name:'Samsung SSD 256GB', category:'হার্ডডিস্ক/SSD', brand:'Samsung', cost:2500, price:3500, stock:15, minStock:5, desc:'SATA III'},
-    {id:6, barcode:'100006', name:'HP Printer', category:'প্রিন্টার', brand:'HP', cost:8000, price:11000, stock:4, minStock:3, desc:'LaserJet'},
-    {id:7, barcode:'100007', name:'Kingston RAM 8GB', category:'র‍্যাম', brand:'Kingston', cost:2000, price:2800, stock:2, minStock:5, desc:'DDR4'},
-    {id:8, barcode:'100008', name:'Intel Core i5', category:'প্রসেসর', brand:'Intel', cost:15000, price:19000, stock:6, minStock:3, desc:'10th Gen'}
+    {id:1, barcode:'100001', name:'HP Laptop 15s', category:'ল্যাপটপ', brand:'HP', cost:45000, price:55000, stock:10, minStock:3, warranty:12, desc:'Intel Core i5, 8GB RAM'},
+    {id:2, barcode:'100002', name:'Dell Monitor 22"', category:'মনিটর', brand:'Dell', cost:12000, price:15000, stock:8, minStock:3, warranty:24, desc:'LED Full HD'},
+    {id:3, barcode:'100003', name:'Logitech Mouse', category:'মাউস', brand:'Logitech', cost:500, price:800, stock:25, minStock:5, warranty:6, desc:'Wireless'},
+    {id:4, barcode:'100004', name:'A4Tech Keyboard', category:'কীবোর্ড', brand:'A4Tech', cost:700, price:1100, stock:20, minStock:5, warranty:6, desc:'USB Wired'},
+    {id:5, barcode:'100005', name:'Samsung SSD 256GB', category:'হার্ডডিস্ক/SSD', brand:'Samsung', cost:2500, price:3500, stock:15, minStock:5, warranty:36, desc:'SATA III'},
+    {id:6, barcode:'100006', name:'HP Printer', category:'প্রিন্টার', brand:'HP', cost:8000, price:11000, stock:4, minStock:3, warranty:12, desc:'LaserJet'},
+    {id:7, barcode:'100007', name:'Kingston RAM 8GB', category:'র‍্যাম', brand:'Kingston', cost:2000, price:2800, stock:2, minStock:5, warranty:24, desc:'DDR4'},
+    {id:8, barcode:'100008', name:'Intel Core i5', category:'প্রসেসর', brand:'Intel', cost:15000, price:19000, stock:6, minStock:3, warranty:36, desc:'10th Gen'}
   ];
   saveData();
 }
 
+// ========== Theme ==========
+function initTheme() {
+  const savedTheme = localStorage.getItem('erp_theme') || 'light';
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+    document.getElementById('themeSwitch').classList.add('dark');
+    document.getElementById('themeLabel').textContent = t('nightMode');
+  } else {
+    document.getElementById('themeLabel').textContent = t('dayMode');
+  }
+}
+
+function toggleTheme() {
+  const body = document.body;
+  const switchEl = document.getElementById('themeSwitch');
+  const label = document.getElementById('themeLabel');
+  body.classList.toggle('dark-mode');
+  switchEl.classList.toggle('dark');
+  const isDark = body.classList.contains('dark-mode');
+  label.textContent = isDark ? t('nightMode') : t('dayMode');
+  localStorage.setItem('erp_theme', isDark ? 'dark' : 'light');
+  toast(isDark ? t('themeNight') : t('themeDay'));
+}
+
+// ========== Navigation ==========
 function showSection(id, el) {
   document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   document.querySelectorAll('.sidebar-menu li').forEach(l => l.classList.remove('active'));
   el.classList.add('active');
-  const titles = {dashboard:'ড্যাশবোর্ড',pos:'পয়েন্ট অফ সেল',products:'পণ্য তালিকা',invoices:'ইনভয়েস',customers:'ক্রেতা তালিকা',suppliers:'সরবরাহকারী',purchase:'ক্রয়',barcode:'বারকোড জেনারেটর',reports:'রিপোর্ট',settings:'সেটিংস'};
-  document.getElementById('pageTitle').textContent = titles[id] || '';
+  const titles = {
+    dashboard: t('dashboard'), pos: t('pos'), products: t('products'),
+    invoices: t('invoices'), dueList: t('dueList'), customers: t('customers'),
+    suppliers: t('suppliers'), purchase: t('purchase'), barcode: t('barcode'),
+    reports: t('reports'), settings: t('settings')
+  };
+  const icons = {
+    dashboard: '📊', pos: '🛒', products: '📦', invoices: '🧾',
+    dueList: '💸', customers: '👥', suppliers: '🏭', purchase: '📥',
+    barcode: '📶', reports: '📈', settings: '⚙️'
+  };
+  document.getElementById('pageTitle').innerHTML = `${icons[id] || ''} ${titles[id] || ''}`;
+  
   if (id === 'dashboard') loadDashboard();
   if (id === 'pos') loadPOS();
   if (id === 'products') loadProducts();
   if (id === 'invoices') loadInvoices();
+  if (id === 'dueList') loadDueList();
   if (id === 'customers') loadCustomers();
   if (id === 'suppliers') loadSuppliers();
   if (id === 'purchase') loadPurchases();
   if (id === 'barcode') loadBarcodeSection();
-  if (id === 'settings') loadSettings();
+  if (id === 'settings') { loadSettings(); loadCategoryManager(); }
 }
 
+// ========== Toast ==========
 function toast(msg, type='success') {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast show ' + type;
-  setTimeout(() => t.classList.remove('show'), 3000);
+  const t_el = document.getElementById('toast');
+  t_el.textContent = msg;
+  t_el.className = 'toast show ' + type;
+  setTimeout(() => t_el.classList.remove('show'), 3000);
 }
 
+// ========== Date Time ==========
 function updateDateTime() {
   const now = new Date();
   const options = {weekday:'long', year:'numeric', month:'long', day:'numeric'};
-  const bnDate = now.toLocaleDateString('bn-BD', options);
-  const bnTime = now.toLocaleTimeString('bn-BD');
-  document.getElementById('dateTime').textContent = bnDate + ' | ' + bnTime;
+  const locale = currentLang === 'bn' ? 'bn-BD' : 'en-US';
+  const dateStr = now.toLocaleDateString(locale, options);
+  const timeStr = now.toLocaleTimeString(locale);
+  document.getElementById('dateTime').textContent = dateStr + ' | ' + timeStr;
 }
 setInterval(updateDateTime, 1000);
 updateDateTime();
 
+// ========== Dashboard ==========
 function loadDashboard() {
   const today = new Date().toDateString();
   const todaySales = data.invoices.filter(i => new Date(i.date).toDateString() === today).reduce((s,i) => s + i.total, 0);
   document.getElementById('todaySales').textContent = data.settings.currency + todaySales.toLocaleString();
   document.getElementById('totalProducts').textContent = data.products.length;
   document.getElementById('totalInvoices').textContent = data.invoices.length;
-  const lowStockItems = data.products.filter(p => p.stock <= p.minStock);
-  document.getElementById('lowStock').textContent = lowStockItems.length;
+  
+  const totalDue = data.invoices.reduce((s, i) => s + (i.due || 0), 0);
+  document.getElementById('totalDue').textContent = data.settings.currency + totalDue.toLocaleString();
   document.getElementById('totalCustomers').textContent = data.customers.length;
 
+  // Chart
   const chart = document.getElementById('salesChart');
   chart.innerHTML = '';
   const days = [];
   for (let i = 6; i >= 0; i--) {
     const d = new Date(); d.setDate(d.getDate() - i);
     const daySales = data.invoices.filter(inv => new Date(inv.date).toDateString() === d.toDateString()).reduce((s,i) => s + i.total, 0);
-    days.push({label: d.toLocaleDateString('bn-BD', {weekday:'short'}), value: daySales});
+    const locale = currentLang === 'bn' ? 'bn-BD' : 'en-US';
+    days.push({label: d.toLocaleDateString(locale, {weekday:'short'}), value: daySales});
   }
   const max = Math.max(...days.map(d => d.value), 1);
   days.forEach(d => {
@@ -909,21 +1615,27 @@ function loadDashboard() {
     chart.innerHTML += `<div class="bar" style="height:${Math.max(h,5)}%"><div class="bar-value">${d.value}</div><div class="bar-label">${d.label}</div></div>`;
   });
 
+  // Recent sales
   const recent = document.getElementById('recentSales');
   const recentInv = data.invoices.slice(-5).reverse();
   if (recentInv.length === 0) {
-    recent.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:20px;">কোন বিক্রয় নেই</p>';
+    recent.innerHTML = `<p style="text-align:center;color:var(--text-muted);padding:20px;">${t('noSales')}</p>`;
   } else {
     recent.innerHTML = recentInv.map(i => `
       <div style="display:flex;justify-content:space-between;padding:10px;border-bottom:1px solid var(--border-light);">
-        <div><div style="font-weight:500;">#${i.invoiceNo}</div><div style="font-size:12px;color:var(--text-muted);">${i.customer || 'ওয়াক-ইন'}</div></div>
-        <div style="text-align:right;"><div style="font-weight:bold;color:var(--text-heading);">${data.settings.currency}${i.total}</div><div style="font-size:11px;color:var(--text-muted);">${new Date(i.date).toLocaleDateString('bn-BD')}</div></div>
+        <div><div style="font-weight:500;">#${i.invoiceNo}</div><div style="font-size:12px;color:var(--text-muted);">${i.customerName || '-'}</div></div>
+        <div style="text-align:right;">
+          <div style="font-weight:bold;color:var(--text-heading);">${data.settings.currency}${i.total}</div>
+          ${i.due > 0 ? `<div style="font-size:11px;color:var(--danger);">${t('due')}: ${data.settings.currency}${i.due}</div>` : ''}
+        </div>
       </div>`).join('');
   }
 
+  // Low stock
+  const lowStockItems = data.products.filter(p => p.stock <= p.minStock);
   const lowTable = document.getElementById('lowStockTable');
   if (lowStockItems.length === 0) {
-    lowTable.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);">সব পণ্যের স্টক পর্যাপ্ত ✓</td></tr>';
+    lowTable.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);">${t('stockOk')}</td></tr>`;
   } else {
     lowTable.innerHTML = lowStockItems.map(p => `
       <tr>
@@ -931,29 +1643,32 @@ function loadDashboard() {
         <td>${p.name}</td>
         <td>${p.category}</td>
         <td><strong style="color:var(--danger);">${p.stock}</strong></td>
-        <td><span class="badge badge-danger">কম স্টক</span></td>
+        <td><span class="badge badge-danger">${t('lowStockBadge')}</span></td>
       </tr>`).join('');
   }
 }
 
+// ========== POS ==========
 function loadPOS() {
   renderPOSProducts(data.products);
   const custSel = document.getElementById('cartCustomer');
-  custSel.innerHTML = '<option value="">ওয়াক-ইন কাস্টমার</option>' + data.customers.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+  custSel.innerHTML = `<option value="">${t('selectCustomerPrompt')}</option>` + 
+    data.customers.map(c => `<option value="${c.id}">${c.name} - ${c.phone}</option>`).join('');
   renderCart();
 }
 
 function renderPOSProducts(products) {
   const grid = document.getElementById('posProductGrid');
   if (products.length === 0) {
-    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--text-muted);padding:20px;">কোন পণ্য পাওয়া যায়নি</p>';
+    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:var(--text-muted);padding:20px;">${t('noData')}</p>`;
     return;
   }
   grid.innerHTML = products.map(p => `
     <div class="product-item" onclick="addToCart(${p.id})">
+      ${p.warranty > 0 ? `<div class="warranty-tag">${p.warranty}${t('months')}</div>` : ''}
       <div class="name">${p.name}</div>
       <div class="price">${data.settings.currency}${p.price}</div>
-      <div class="stock">স্টক: ${p.stock}</div>
+      <div class="stock">${t('stock')}: ${p.stock}</div>
     </div>`).join('');
 }
 
@@ -969,7 +1684,19 @@ function searchPOS(q) {
   }
 }
 
+function checkCustomerSelection() {
+  // Just for validation feedback
+}
+
 function addToCart(id) {
+  // Check customer selection first
+  const customerId = document.getElementById('cartCustomer').value;
+  if (!customerId) {
+    toast(t('selectCustomerFirst'), 'warning');
+    document.getElementById('cartCustomer').focus();
+    return;
+  }
+  
   const product = data.products.find(p => p.id === id);
   if (!product) return;
   if (product.stock <= 0) { toast('স্টক শেষ!', 'error'); return; }
@@ -978,7 +1705,10 @@ function addToCart(id) {
     if (existing.qty >= product.stock) { toast('স্টক সীমা অতিক্রম!', 'error'); return; }
     existing.qty++;
   } else {
-    data.cart.push({id: product.id, name: product.name, price: product.price, qty: 1});
+    data.cart.push({
+      id: product.id, name: product.name, price: product.price,
+      qty: 1, warranty: product.warranty || 0
+    });
   }
   renderCart();
   toast(product.name + ' যোগ হয়েছে');
@@ -987,13 +1717,14 @@ function addToCart(id) {
 function renderCart() {
   const cart = document.getElementById('cartItems');
   if (data.cart.length === 0) {
-    cart.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:20px;">কার্ট খালি</p>';
+    cart.innerHTML = `<p style="text-align:center;color:var(--text-muted);padding:20px;">${t('cartEmpty')}</p>`;
   } else {
     cart.innerHTML = data.cart.map((item, idx) => `
       <div class="cart-item">
         <div class="cart-item-info">
           <div class="cart-item-name">${item.name}</div>
           <div class="cart-item-price">${data.settings.currency}${item.price} × ${item.qty} = ${data.settings.currency}${item.price * item.qty}</div>
+          ${item.warranty > 0 ? `<div style="font-size:11px;color:var(--success);">🛡️ ${t('warranty')}: ${item.warranty} ${t('months')}</div>` : ''}
         </div>
         <div class="cart-item-qty">
           <button class="qty-btn" onclick="changeQty(${idx},-1)">-</button>
@@ -1024,6 +1755,7 @@ function clearCart() {
   if (data.cart.length === 0) return;
   if (confirm('কার্ট খালি করবেন?')) {
     data.cart = [];
+    document.getElementById('discount').value = 0;
     renderCart();
   }
 }
@@ -1037,31 +1769,75 @@ function updateCartTotal() {
   document.getElementById('subtotal').textContent = data.settings.currency + subtotal;
   document.getElementById('vat').textContent = data.settings.currency + vat.toFixed(0);
   document.getElementById('grandTotal').textContent = data.settings.currency + grand.toFixed(0);
+  updatePayment();
+}
+
+function updatePayment() {
+  const method = document.getElementById('paymentMethod').value;
+  const paymentRow = document.getElementById('paymentRow');
+  const grandTotal = parseFloat(document.getElementById('grandTotal').textContent.replace(/[^\d.]/g, '')) || 0;
+  
+  if (method === 'partial') {
+    paymentRow.style.display = 'grid';
+    document.getElementById('paidAmount').max = grandTotal;
+    updateDueAmount();
+  } else if (method === 'due') {
+    paymentRow.style.display = 'grid';
+    document.getElementById('paidAmount').value = 0;
+    document.getElementById('dueAmount').value = grandTotal;
+  } else {
+    paymentRow.style.display = 'none';
+  }
+}
+
+function updateDueAmount() {
+  const grandTotal = parseFloat(document.getElementById('grandTotal').textContent.replace(/[^\d.]/g, '')) || 0;
+  const paid = parseFloat(document.getElementById('paidAmount').value) || 0;
+  const due = Math.max(0, grandTotal - paid);
+  document.getElementById('dueAmount').value = due.toFixed(0);
 }
 
 function checkout() {
-  if (data.cart.length === 0) { toast('কার্ট খালি!', 'error'); return; }
   const customerId = document.getElementById('cartCustomer').value;
+  if (!customerId) {
+    toast(t('selectCustomerFirst'), 'error');
+    return;
+  }
+  if (data.cart.length === 0) { toast(t('cartEmptyAlert'), 'error'); return; }
+  
   const customer = data.customers.find(c => c.id == customerId);
   const subtotal = data.cart.reduce((s, i) => s + i.price * i.qty, 0);
   const discount = parseFloat(document.getElementById('discount').value) || 0;
   const vatRate = parseFloat(data.settings.vatRate) || 0;
   const vat = (subtotal - discount) * vatRate / 100;
   const total = subtotal - discount + vat;
+  
+  const paymentMethod = document.getElementById('paymentMethod').value;
+  let paid = total, due = 0;
+  
+  if (paymentMethod === 'due') {
+    paid = 0; due = total;
+  } else if (paymentMethod === 'partial') {
+    paid = parseFloat(document.getElementById('paidAmount').value) || 0;
+    due = total - paid;
+  }
 
   data.settings.invoiceCounter++;
   const invoice = {
     id: Date.now(),
     invoiceNo: 'INV-' + data.settings.invoiceCounter,
     date: new Date().toISOString(),
-    customerId: customerId || null,
-    customer: customer ? customer.name : 'ওয়াক-ইন কাস্টমার',
+    customerId: customerId,
+    customerName: customer ? customer.name : '-',
+    customerPhone: customer ? customer.phone : '-',
     items: JSON.parse(JSON.stringify(data.cart)),
-    subtotal, discount, vat, total,
-    paymentMethod: 'নগদ'
+    subtotal, discount, vat, total, paid, due,
+    paymentMethod: paymentMethod,
+    paymentNote: document.getElementById('duePaymentNote')?.value || ''
   };
   data.invoices.push(invoice);
 
+  // Update stock
   data.cart.forEach(item => {
     const p = data.products.find(pr => pr.id === item.id);
     if (p) p.stock -= item.qty;
@@ -1071,10 +1847,12 @@ function checkout() {
   printInvoice(invoice);
   data.cart = [];
   document.getElementById('discount').value = 0;
+  document.getElementById('paymentMethod').value = 'cash';
   renderCart();
-  toast('ইনভয়েস তৈরি হয়েছে!');
+  toast(t('invoiceCreated'));
 }
 
+// ========== Invoice Print ==========
 function printInvoice(invoice) {
   const printArea = document.getElementById('invoicePrint');
   printArea.innerHTML = `
@@ -1082,45 +1860,65 @@ function printInvoice(invoice) {
       <div class="invoice-header">
         <h1>${data.settings.shopName}</h1>
         <p>${data.settings.shopAddress}</p>
-        <p>ফোন: ${data.settings.shopPhone}</p>
-        <h3 style="margin-top:10px;">ইনভয়েস</h3>
+        <p>Phone: ${data.settings.shopPhone}</p>
+        <h3 style="margin-top:10px;">INVOICE</h3>
       </div>
       <div class="invoice-info">
         <div>
-          <p><strong>ইনভয়েস নং:</strong> ${invoice.invoiceNo}</p>
-          <p><strong>তারিখ:</strong> ${new Date(invoice.date).toLocaleString('bn-BD')}</p>
+          <p><strong>Invoice No:</strong> ${invoice.invoiceNo}</p>
+          <p><strong>Date:</strong> ${new Date(invoice.date).toLocaleString()}</p>
         </div>
         <div>
-          <p><strong>ক্রেতা:</strong> ${invoice.customer}</p>
+          <p><strong>Customer:</strong> ${invoice.customerName}</p>
+          <p><strong>Phone:</strong> ${invoice.customerPhone}</p>
         </div>
       </div>
       <table class="invoice-table">
-        <thead><tr><th>ক্র.</th><th>পণ্য</th><th>পরিমাণ</th><th>মূল্য</th><th>মোট</th></tr></thead>
+        <thead><tr><th>#</th><th>Product</th><th>Qty</th><th>Price</th><th>Warranty</th><th>Total</th></tr></thead>
         <tbody>
-          ${invoice.items.map((it, i) => `<tr><td>${i+1}</td><td>${it.name}</td><td>${it.qty}</td><td>${data.settings.currency}${it.price}</td><td>${data.settings.currency}${it.price * it.qty}</td></tr>`).join('')}
+          ${invoice.items.map((it, i) => `<tr>
+            <td>${i+1}</td>
+            <td>${it.name}</td>
+            <td>${it.qty}</td>
+            <td>${data.settings.currency}${it.price}</td>
+            <td>${it.warranty > 0 ? it.warranty + ' ' + t('months') : '-'}</td>
+            <td>${data.settings.currency}${it.price * it.qty}</td>
+          </tr>`).join('')}
         </tbody>
       </table>
       <div class="invoice-total">
-        <div class="row"><span>সাবটোটাল:</span><span>${data.settings.currency}${invoice.subtotal}</span></div>
-        <div class="row"><span>ডিসকাউন্ট:</span><span>-${data.settings.currency}${invoice.discount}</span></div>
-        <div class="row"><span>ভ্যাট:</span><span>${data.settings.currency}${invoice.vat.toFixed(0)}</span></div>
-        <div class="row grand"><span>সর্বমোট:</span><span>${data.settings.currency}${invoice.total.toFixed(0)}</span></div>
+        <div class="row"><span>Subtotal:</span><span>${data.settings.currency}${invoice.subtotal}</span></div>
+        <div class="row"><span>Discount:</span><span>-${data.settings.currency}${invoice.discount}</span></div>
+        <div class="row"><span>VAT:</span><span>${data.settings.currency}${invoice.vat.toFixed(0)}</span></div>
+        <div class="row grand"><span>Grand Total:</span><span>${data.settings.currency}${invoice.total.toFixed(0)}</span></div>
+        <div class="row"><span>Paid:</span><span style="color:#4caf50;">${data.settings.currency}${invoice.paid}</span></div>
+        ${invoice.due > 0 ? `<div class="row due"><span>Due:</span><span>${data.settings.currency}${invoice.due}</span></div>` : ''}
       </div>
       <div style="margin-top:40px;text-align:center;border-top:1px dashed #999;padding-top:15px;">
-        <p>ধন্যবাদ আপনার ক্রয়ের জন্য!</p>
-        <p style="font-size:12px;">আবার আসবেন</p>
+        <p>${t('thanks')}</p>
+        <p style="font-size:12px;">${t('comeAgain')}</p>
       </div>
     </div>`;
   setTimeout(() => window.print(), 300);
 }
 
+// ========== Products ==========
 function loadProducts() {
+  renderProductsTable(data.products);
+  // Update category filter
+  const catFilter = document.getElementById('categoryFilter');
+  catFilter.innerHTML = `<option value="">${t('allCategories')}</option>` + 
+    data.categories.map(c => `<option value="${c}">${c}</option>`).join('');
+}
+
+function renderProductsTable(products) {
   const tbody = document.getElementById('productsTable');
-  tbody.innerHTML = data.products.map(p => `
+  tbody.innerHTML = products.map(p => `
     <tr>
       <td><code>${p.barcode}</code></td>
       <td><strong>${p.name}</strong><br><small style="color:var(--text-muted);">${p.brand || ''}</small></td>
       <td>${p.category}</td>
+      <td>${p.warranty > 0 ? `<span class="badge badge-success">${p.warranty} ${t('months')}</span>` : '-'}</td>
       <td>${data.settings.currency}${p.cost}</td>
       <td><strong>${data.settings.currency}${p.price}</strong></td>
       <td><span class="badge ${p.stock <= p.minStock ? 'badge-danger' : 'badge-success'}">${p.stock}</span></td>
@@ -1134,51 +1932,53 @@ function loadProducts() {
 function filterProducts(q) {
   q = q.toLowerCase();
   const filtered = data.products.filter(p => p.name.toLowerCase().includes(q) || p.barcode.includes(q) || p.category.toLowerCase().includes(q));
-  const tbody = document.getElementById('productsTable');
-  tbody.innerHTML = filtered.map(p => `
-    <tr>
-      <td><code>${p.barcode}</code></td>
-      <td><strong>${p.name}</strong><br><small style="color:var(--text-muted);">${p.brand || ''}</small></td>
-      <td>${p.category}</td>
-      <td>${data.settings.currency}${p.cost}</td>
-      <td><strong>${data.settings.currency}${p.price}</strong></td>
-      <td><span class="badge ${p.stock <= p.minStock ? 'badge-danger' : 'badge-success'}">${p.stock}</span></td>
-      <td>
-        <button class="btn btn-sm btn-info" onclick="editProduct(${p.id})">✏️</button>
-        <button class="btn btn-sm btn-danger" onclick="deleteProduct(${p.id})">🗑️</button>
-      </td>
-    </tr>`).join('');
+  renderProductsTable(filtered);
+}
+
+function filterByCategory(cat) {
+  if (!cat) { renderProductsTable(data.products); return; }
+  const filtered = data.products.filter(p => p.category === cat);
+  renderProductsTable(filtered);
 }
 
 function openProductModal() {
-  document.getElementById('productModalTitle').textContent = 'নতুন পণ্য যোগ করুন';
+  document.getElementById('productModalTitle').textContent = t('newProduct');
   document.getElementById('productId').value = '';
   document.getElementById('productName').value = '';
   document.getElementById('productBarcode').value = 'BC' + Date.now().toString().slice(-8);
-  document.getElementById('productCategory').value = 'ল্যাপটপ';
   document.getElementById('productBrand').value = '';
   document.getElementById('productCost').value = '';
   document.getElementById('productPrice').value = '';
+  document.getElementById('productWarranty').value = '0';
   document.getElementById('productStock').value = '';
   document.getElementById('productMinStock').value = '5';
   document.getElementById('productDesc').value = '';
+  
+  // Populate categories
+  const catSel = document.getElementById('productCategory');
+  catSel.innerHTML = data.categories.map(c => `<option value="${c}">${c}</option>`).join('');
+  
   document.getElementById('productModal').classList.add('show');
 }
 
 function editProduct(id) {
   const p = data.products.find(x => x.id === id);
   if (!p) return;
-  document.getElementById('productModalTitle').textContent = 'পণ্য সম্পাদনা';
+  document.getElementById('productModalTitle').textContent = t('editProduct');
   document.getElementById('productId').value = p.id;
   document.getElementById('productName').value = p.name;
   document.getElementById('productBarcode').value = p.barcode;
-  document.getElementById('productCategory').value = p.category;
   document.getElementById('productBrand').value = p.brand || '';
   document.getElementById('productCost').value = p.cost;
   document.getElementById('productPrice').value = p.price;
+  document.getElementById('productWarranty').value = p.warranty || 0;
   document.getElementById('productStock').value = p.stock;
   document.getElementById('productMinStock').value = p.minStock;
   document.getElementById('productDesc').value = p.desc || '';
+  
+  const catSel = document.getElementById('productCategory');
+  catSel.innerHTML = data.categories.map(c => `<option value="${c}" ${c === p.category ? 'selected' : ''}>${c}</option>`).join('');
+  
   document.getElementById('productModal').classList.add('show');
 }
 
@@ -1192,11 +1992,12 @@ function saveProduct() {
     brand: document.getElementById('productBrand').value,
     cost: parseFloat(document.getElementById('productCost').value) || 0,
     price: parseFloat(document.getElementById('productPrice').value) || 0,
+    warranty: parseInt(document.getElementById('productWarranty').value) || 0,
     stock: parseInt(document.getElementById('productStock').value) || 0,
     minStock: parseInt(document.getElementById('productMinStock').value) || 5,
     desc: document.getElementById('productDesc').value
   };
-  if (!product.name || !product.price) { toast('নাম ও মূল্য আবশ্যক!', 'error'); return; }
+  if (!product.name || !product.price) { toast(t('nameRequired'), 'error'); return; }
   if (id) {
     const idx = data.products.findIndex(p => p.id == id);
     data.products[idx] = product;
@@ -1206,7 +2007,7 @@ function saveProduct() {
   saveData();
   closeModal('productModal');
   loadProducts();
-  toast('পণ্য সংরক্ষণ হয়েছে!');
+  toast(t('productSaved'));
 }
 
 function deleteProduct(id) {
@@ -1214,22 +2015,60 @@ function deleteProduct(id) {
   data.products = data.products.filter(p => p.id !== id);
   saveData();
   loadProducts();
-  toast('পণ্য মুছে ফেলা হয়েছে');
 }
 
+// ========== Category Management ==========
+function loadCategoryManager() {
+  const list = document.getElementById('categoryList');
+  list.innerHTML = data.categories.map((c, i) => `
+    <div class="category-tag">
+      🏷️ ${c}
+      <span class="remove" onclick="removeCategory(${i})" title="মুছুন">×</span>
+    </div>`).join('');
+}
+
+function addCategory() {
+  const name = document.getElementById('newCategoryName').value.trim();
+  if (!name) { toast('নাম লিখুন!', 'error'); return; }
+  if (data.categories.includes(name)) { toast('এই ক্যাটাগরি আগেই আছে!', 'warning'); return; }
+  data.categories.push(name);
+  saveData();
+  document.getElementById('newCategoryName').value = '';
+  loadCategoryManager();
+  toast(t('categoryAdded'));
+}
+
+function removeCategory(idx) {
+  const cat = data.categories[idx];
+  // Check if any product uses this category
+  const used = data.products.some(p => p.category === cat);
+  if (used) {
+    if (!confirm(`"${cat}" ক্যাটাগরি কিছু পণ্যে ব্যবহৃত হচ্ছে। তবুও মুছবেন?`)) return;
+  } else {
+    if (!confirm(`"${cat}" মুছে ফেলবেন?`)) return;
+  }
+  data.categories.splice(idx, 1);
+  saveData();
+  loadCategoryManager();
+  toast(t('categoryRemoved'));
+}
+
+// ========== Customers ==========
 function loadCustomers() {
   const tbody = document.getElementById('customersTable');
   if (data.customers.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);">কোন ক্রেতা নেই</td></tr>';
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);">${t('noData')}</td></tr>`;
     return;
   }
   tbody.innerHTML = data.customers.map(c => {
-    const total = data.invoices.filter(i => i.customerId == c.id).reduce((s,i) => s + i.total, 0);
+    const totalPurchase = data.invoices.filter(i => i.customerId == c.id).reduce((s,i) => s + i.total, 0);
+    const totalDue = data.invoices.filter(i => i.customerId == c.id).reduce((s,i) => s + (i.due || 0), 0);
     return `<tr>
       <td><strong>${c.name}</strong></td>
       <td>${c.phone || '-'}</td>
       <td>${c.address || '-'}</td>
-      <td>${data.settings.currency}${total.toLocaleString()}</td>
+      <td>${data.settings.currency}${totalPurchase.toLocaleString()}</td>
+      <td>${totalDue > 0 ? `<span style="color:var(--danger);font-weight:bold;">${data.settings.currency}${totalDue.toLocaleString()}</span>` : `<span style="color:var(--success);">${t('noDue')}</span>`}</td>
       <td>
         <button class="btn btn-sm btn-info" onclick="editCustomer(${c.id})">✏️</button>
         <button class="btn btn-sm btn-danger" onclick="deleteCustomer(${c.id})">🗑️</button>
@@ -1238,12 +2077,13 @@ function loadCustomers() {
   }).join('');
 }
 
-function openCustomerModal() {
+function openCustomerModal(fromPOS = false) {
   document.getElementById('customerId').value = '';
   document.getElementById('customerName').value = '';
   document.getElementById('customerPhone').value = '';
   document.getElementById('customerEmail').value = '';
   document.getElementById('customerAddress').value = '';
+  document.getElementById('customerModal').dataset.fromPOS = fromPOS;
   document.getElementById('customerModal').classList.add('show');
 }
 
@@ -1255,11 +2095,13 @@ function editCustomer(id) {
   document.getElementById('customerPhone').value = c.phone || '';
   document.getElementById('customerEmail').value = c.email || '';
   document.getElementById('customerAddress').value = c.address || '';
+  document.getElementById('customerModal').dataset.fromPOS = 'false';
   document.getElementById('customerModal').classList.add('show');
 }
 
 function saveCustomer() {
   const id = document.getElementById('customerId').value;
+  const fromPOS = document.getElementById('customerModal').dataset.fromPOS === 'true';
   const customer = {
     id: id ? parseInt(id) : Date.now(),
     name: document.getElementById('customerName').value,
@@ -1267,7 +2109,7 @@ function saveCustomer() {
     email: document.getElementById('customerEmail').value,
     address: document.getElementById('customerAddress').value
   };
-  if (!customer.name) { toast('নাম আবশ্যক!', 'error'); return; }
+  if (!customer.name || !customer.phone) { toast('নাম ও ফোন আবশ্যক!', 'error'); return; }
   if (id) {
     const idx = data.customers.findIndex(c => c.id == id);
     data.customers[idx] = customer;
@@ -1276,8 +2118,17 @@ function saveCustomer() {
   }
   saveData();
   closeModal('customerModal');
-  loadCustomers();
-  toast('ক্রেতা সংরক্ষণ হয়েছে!');
+  
+  if (fromPOS) {
+    // Reload POS customer dropdown and select new customer
+    loadPOS();
+    setTimeout(() => {
+      document.getElementById('cartCustomer').value = customer.id;
+    }, 100);
+  } else {
+    loadCustomers();
+  }
+  toast(t('customerSaved'));
 }
 
 function deleteCustomer(id) {
@@ -1287,10 +2138,11 @@ function deleteCustomer(id) {
   loadCustomers();
 }
 
+// ========== Suppliers ==========
 function loadSuppliers() {
   const tbody = document.getElementById('suppliersTable');
   if (data.suppliers.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);">কোন সরবরাহকারী নেই</td></tr>';
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);">${t('noData')}</td></tr>`;
     return;
   }
   tbody.innerHTML = data.suppliers.map(s => `
@@ -1335,7 +2187,7 @@ function saveSupplier() {
     phone: document.getElementById('supplierPhone').value,
     address: document.getElementById('supplierAddress').value
   };
-  if (!supplier.name) { toast('নাম আবশ্যক!', 'error'); return; }
+  if (!supplier.name) { toast(t('nameRequired'), 'error'); return; }
   if (id) {
     const idx = data.suppliers.findIndex(s => s.id == id);
     data.suppliers[idx] = supplier;
@@ -1345,7 +2197,7 @@ function saveSupplier() {
   saveData();
   closeModal('supplierModal');
   loadSuppliers();
-  toast('সরবরাহকারী সংরক্ষণ হয়েছে!');
+  toast(t('supplierSaved'));
 }
 
 function deleteSupplier(id) {
@@ -1355,16 +2207,17 @@ function deleteSupplier(id) {
   loadSuppliers();
 }
 
+// ========== Purchases ==========
 function loadPurchases() {
   const tbody = document.getElementById('purchasesTable');
   if (data.purchases.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);">কোন ক্রয় নেই</td></tr>';
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);">${t('noData')}</td></tr>`;
     return;
   }
   tbody.innerHTML = data.purchases.map(p => `
     <tr>
       <td><strong>PO-${p.id.toString().slice(-6)}</strong></td>
-      <td>${new Date(p.date).toLocaleDateString('bn-BD')}</td>
+      <td>${new Date(p.date).toLocaleDateString()}</td>
       <td>${p.supplierName}</td>
       <td>${p.productName}</td>
       <td>${p.qty}</td>
@@ -1401,22 +2254,26 @@ function savePurchase() {
   saveData();
   closeModal('purchaseModal');
   loadPurchases();
-  toast('ক্রয় সংরক্ষণ ও স্টক আপডেট হয়েছে!');
+  toast(t('purchaseSaved'));
 }
 
+// ========== Invoices ==========
 function loadInvoices() {
   const tbody = document.getElementById('invoicesTable');
   if (data.invoices.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);">কোন ইনভয়েস নেই</td></tr>';
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text-muted);">${t('noData')}</td></tr>`;
     return;
   }
   tbody.innerHTML = data.invoices.slice().reverse().map(i => `
     <tr>
       <td><strong>${i.invoiceNo}</strong></td>
-      <td>${new Date(i.date).toLocaleDateString('bn-BD')}</td>
-      <td>${i.customer}</td>
+      <td>${new Date(i.date).toLocaleDateString()}</td>
+      <td>${i.customerName}</td>
       <td><strong>${data.settings.currency}${i.total}</strong></td>
-      <td><span class="badge badge-success">${i.paymentMethod}</span></td>
+      <td style="color:var(--success);">${data.settings.currency}${i.paid || 0}</td>
+      <td style="color:${(i.due||0) > 0 ? 'var(--danger)' : 'var(--success)'};font-weight:${(i.due||0) > 0 ? 'bold' : 'normal'};">
+        ${data.settings.currency}${i.due || 0}
+      </td>
       <td>
         <button class="btn btn-sm btn-info" onclick='printInvoice(${JSON.stringify(i).replace(/'/g,"&#39;")})'>🖨️</button>
         <button class="btn btn-sm btn-danger" onclick="deleteInvoice(${i.id})">🗑️</button>
@@ -1431,6 +2288,86 @@ function deleteInvoice(id) {
   loadInvoices();
 }
 
+// ========== Due List ==========
+function loadDueList() {
+  const customersWithDue = {};
+  data.invoices.forEach(inv => {
+    if (inv.due > 0 && inv.customerId) {
+      if (!customersWithDue[inv.customerId]) {
+        const cust = data.customers.find(c => c.id == inv.customerId);
+        customersWithDue[inv.customerId] = {
+          id: inv.customerId,
+          name: inv.customerName,
+          phone: inv.customerPhone,
+          totalDue: 0,
+          invoiceCount: 0
+        };
+      }
+      customersWithDue[inv.customerId].totalDue += inv.due;
+      customersWithDue[inv.customerId].invoiceCount++;
+    }
+  });
+  
+  const list = Object.values(customersWithDue);
+  const totalDue = list.reduce((s, c) => s + c.totalDue, 0);
+  document.getElementById('totalDueAmount').textContent = data.settings.currency + totalDue.toLocaleString();
+  
+  const tbody = document.getElementById('dueListTable');
+  if (list.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);">${t('noDue')}</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = list.map(c => `
+    <tr>
+      <td><strong>${c.name}</strong></td>
+      <td>${c.phone || '-'}</td>
+      <td style="color:var(--danger);font-weight:bold;">${data.settings.currency}${c.totalDue.toLocaleString()}</td>
+      <td>${c.invoiceCount}</td>
+      <td>
+        <button class="btn btn-sm btn-success" onclick="openDuePayment(${c.id})">💰 ${t('payNow')}</button>
+      </td>
+    </tr>`).join('');
+}
+
+function openDuePayment(customerId) {
+  const cust = data.customers.find(c => c.id == customerId);
+  if (!cust) return;
+  const totalDue = data.invoices.filter(i => i.customerId == customerId).reduce((s,i) => s + (i.due || 0), 0);
+  document.getElementById('dueCustomerId').value = customerId;
+  document.getElementById('dueCustomerName').textContent = cust.name;
+  document.getElementById('dueCustomerTotal').textContent = data.settings.currency + totalDue.toLocaleString();
+  document.getElementById('duePaymentAmount').value = '';
+  document.getElementById('duePaymentAmount').max = totalDue;
+  document.getElementById('duePaymentNote').value = '';
+  document.getElementById('duePaymentModal').classList.add('show');
+}
+
+function processDuePayment() {
+  const customerId = document.getElementById('dueCustomerId').value;
+  const amount = parseFloat(document.getElementById('duePaymentAmount').value);
+  const note = document.getElementById('duePaymentNote').value;
+  
+  if (!amount || amount <= 0) { toast('সঠিক পরিমাণ দিন!', 'error'); return; }
+  
+  // Find invoices with due for this customer
+  const dueInvoices = data.invoices.filter(i => i.customerId == customerId && i.due > 0);
+  let remaining = amount;
+  
+  for (let inv of dueInvoices) {
+    if (remaining <= 0) break;
+    const payment = Math.min(remaining, inv.due);
+    inv.due -= payment;
+    inv.paid += payment;
+    remaining -= payment;
+  }
+  
+  saveData();
+  closeModal('duePaymentModal');
+  loadDueList();
+  toast(`৳${amount} পরিশোধ হয়েছে!`);
+}
+
+// ========== Barcode ==========
 function loadBarcodeSection() {
   const sel = document.getElementById('barcodeProduct');
   sel.innerHTML = '<option value="">-- নির্বাচন করুন --</option>' + data.products.map(p => `<option value="${p.id}">${p.name} (${p.barcode})</option>`).join('');
@@ -1460,7 +2397,7 @@ function generateCustomBarcode() {
     try {
       JsBarcode('#bc_' + i, text, {format: 'CODE128', width: 2, height: 60, displayValue: true, fontSize: 14});
     } catch(e) {
-      div.innerHTML = '<p style="color:var(--danger);">ভ্যালিড বারকোড নয়</p>';
+      div.innerHTML = '<p style="color:var(--danger);">Invalid barcode</p>';
     }
   }
 }
@@ -1469,10 +2406,11 @@ function printBarcodes() {
   const container = document.getElementById('barcodeContainer');
   if (container.innerHTML === '') { toast('প্রথমে বারকোড তৈরি করুন!', 'error'); return; }
   const printArea = document.getElementById('invoicePrint');
-  printArea.innerHTML = `<div style="padding:20px;"><h2 style="text-align:center;margin-bottom:20px;">${data.settings.shopName} - বারকোড</h2><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:15px;">${container.innerHTML}</div></div>`;
+  printArea.innerHTML = `<div style="padding:20px;"><h2 style="text-align:center;margin-bottom:20px;">${data.settings.shopName} - Barcode</h2><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:15px;">${container.innerHTML}</div></div>`;
   setTimeout(() => window.print(), 300);
 }
 
+// ========== Reports ==========
 function generateReport() {
   const from = document.getElementById('reportFrom').value;
   const to = document.getElementById('reportTo').value;
@@ -1480,6 +2418,8 @@ function generateReport() {
   if (from) filtered = filtered.filter(i => new Date(i.date) >= new Date(from));
   if (to) filtered = filtered.filter(i => new Date(i.date) <= new Date(to + 'T23:59:59'));
   const totalSales = filtered.reduce((s,i) => s + i.total, 0);
+  const totalPaid = filtered.reduce((s,i) => s + (i.paid || 0), 0);
+  const totalDue = filtered.reduce((s,i) => s + (i.due || 0), 0);
   const totalProfit = filtered.reduce((s,i) => {
     return s + i.items.reduce((ss, it) => {
       const p = data.products.find(pr => pr.id === it.id);
@@ -1489,23 +2429,33 @@ function generateReport() {
 
   document.getElementById('reportResult').innerHTML = `
     <div class="stats-grid">
-      <div class="stat-card blue"><div class="icon">🧾</div><h3>মোট ইনভয়েস</h3><div class="value">${filtered.length}</div></div>
-      <div class="stat-card green"><div class="icon">💰</div><h3>মোট বিক্রয়</h3><div class="value">${data.settings.currency}${totalSales.toLocaleString()}</div></div>
-      <div class="stat-card orange"><div class="icon">📈</div><h3>আনুমানিক লাভ</h3><div class="value">${data.settings.currency}${totalProfit.toLocaleString()}</div></div>
+      <div class="stat-card blue"><div class="icon-wrap">🧾</div><h3>${t('totalInvoices')}</h3><div class="value">${filtered.length}</div></div>
+      <div class="stat-card green"><div class="icon-wrap">💰</div><h3>Total Sales</h3><div class="value">${data.settings.currency}${totalSales.toLocaleString()}</div></div>
+      <div class="stat-card orange"><div class="icon-wrap">💵</div><h3>Total Paid</h3><div class="value">${data.settings.currency}${totalPaid.toLocaleString()}</div></div>
+      <div class="stat-card red"><div class="icon-wrap">💸</div><h3>Total Due</h3><div class="value">${data.settings.currency}${totalDue.toLocaleString()}</div></div>
+      <div class="stat-card purple"><div class="icon-wrap">📈</div><h3>Profit</h3><div class="value">${data.settings.currency}${totalProfit.toLocaleString()}</div></div>
     </div>
     <div class="panel">
-      <div class="panel-header"><h2>ইনভয়েস বিবরণ</h2></div>
+      <div class="panel-header"><h2>Invoice Details</h2></div>
       <div class="table-container">
         <table>
-          <thead><tr><th>ইনভয়েস নং</th><th>তারিখ</th><th>ক্রেতা</th><th>মোট</th></tr></thead>
+          <thead><tr><th>${t('invoiceNo')}</th><th>${t('date')}</th><th>${t('customer')}</th><th>${t('total')}</th><th>${t('paid')}</th><th>${t('due')}</th></tr></thead>
           <tbody>
-            ${filtered.map(i => `<tr><td>${i.invoiceNo}</td><td>${new Date(i.date).toLocaleDateString('bn-BD')}</td><td>${i.customer}</td><td>${data.settings.currency}${i.total}</td></tr>`).join('')}
+            ${filtered.map(i => `<tr>
+              <td>${i.invoiceNo}</td>
+              <td>${new Date(i.date).toLocaleDateString()}</td>
+              <td>${i.customerName}</td>
+              <td>${data.settings.currency}${i.total}</td>
+              <td style="color:var(--success);">${data.settings.currency}${i.paid || 0}</td>
+              <td style="color:${(i.due||0) > 0 ? 'var(--danger)' : 'var(--success)'};">${data.settings.currency}${i.due || 0}</td>
+            </tr>`).join('')}
           </tbody>
         </table>
       </div>
     </div>`;
 }
 
+// ========== Settings ==========
 function loadSettings() {
   document.getElementById('shopName').value = data.settings.shopName;
   document.getElementById('shopPhone').value = data.settings.shopPhone;
@@ -1521,18 +2471,13 @@ function saveSettings() {
   data.settings.vatRate = parseFloat(document.getElementById('vatRate').value);
   data.settings.currency = document.getElementById('currency').value;
   saveData();
-  toast('সেটিংস সংরক্ষণ হয়েছে!');
+  toast(t('settingsSaved'));
 }
 
 function resetData() {
-  if (!confirm('সত্যিই সব ডাটা মুছে ফেলবেন? এটি পূর্বাবস্থায় ফেরানো যাবে না!')) return;
+  if (!confirm('সত্যিই সব ডাটা মুছে ফেলবেন?')) return;
   if (!confirm('শেষবারের মতো নিশ্চিত করুন!')) return;
-  localStorage.removeItem('erp_products');
-  localStorage.removeItem('erp_customers');
-  localStorage.removeItem('erp_suppliers');
-  localStorage.removeItem('erp_invoices');
-  localStorage.removeItem('erp_purchases');
-  localStorage.removeItem('erp_settings');
+  ['erp_products','erp_customers','erp_suppliers','erp_invoices','erp_purchases','erp_categories','erp_settings'].forEach(k => localStorage.removeItem(k));
   location.reload();
 }
 
@@ -1540,6 +2485,11 @@ function closeModal(id) {
   document.getElementById(id).classList.remove('show');
 }
 
+// ========== Initialize ==========
+initTheme();
+applyTranslations();
+document.getElementById('langBn').classList.toggle('active', currentLang === 'bn');
+document.getElementById('langEn').classList.toggle('active', currentLang === 'en');
 loadDashboard();
 </script>
 </body>
